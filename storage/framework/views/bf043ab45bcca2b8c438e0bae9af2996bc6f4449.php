@@ -1,0 +1,1 @@
+<?php /**PATH D:\Server\data\htdocs\app.loc\resources\views/customer/footer.blade.php ENDPATH**/ ?>
