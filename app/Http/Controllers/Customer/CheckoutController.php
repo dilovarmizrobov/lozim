@@ -26,9 +26,10 @@ class CheckoutController extends Controller
         ]);
 
         $user = auth()->user();
+        $total =(double)str_replace(' ', '', Cart::subtotal());
 
         $order = $user->orders()->create([
-            'total'=> Cart::subtotal(),
+            'total'=> $total,
             'name'=> $request->name,
             'phone'=> $request->phone,
             'address'=> $request->address,
