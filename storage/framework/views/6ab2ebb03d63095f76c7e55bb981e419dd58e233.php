@@ -15,31 +15,32 @@
                             </div>
                         </li>
                     <?php endif; ?>
-                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('is_customer')): ?>
-                        <li class="dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre="">
-                                <?php echo e(Auth::user()->email); ?>
+                    <?php if(auth()->guard()->check()): ?>
+                        <?php if(Auth::user()->can('is_admin')): ?>
+                            <li class="nav-item">
+                                <a class="nav-link">Hello Admin!</a>
+                            </li>
+                        <?php else: ?>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre="">
+                                    <?php echo e(Auth::user()->email); ?>
 
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="<?php echo e(route('customer.index')); ?>"><?php echo app('translator')->get('Customer'); ?> #<?php echo e(auth()->user()->id); ?></a>
-                                <a class="dropdown-item" href="<?php echo e(route('customer.order.index')); ?>"><?php echo app('translator')->get('My Orders'); ?></a>
-                                <a class="dropdown-item" href="<?php echo e(route('customer.favorite.index')); ?>">Избранные товары</a>
-                                <a class="dropdown-item" href="<?php echo e(route('customer.profile.index')); ?>"><?php echo app('translator')->get('Account Setting'); ?></a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="http://mdk.loc/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    Выход
                                 </a>
-                                <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" hidden>
-                                    <?php echo csrf_field(); ?>
-                                </form>
-                            </div>
-                        </li>
-                    <?php endif; ?>
-                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('is_admin')): ?>
-                        <li class="nav-item">
-                            <a class="nav-link">Hello Admin!</a>
-                        </li>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="<?php echo e(route('customer.index')); ?>"><?php echo app('translator')->get('Customer'); ?> #<?php echo e(auth()->user()->id); ?></a>
+                                    <a class="dropdown-item" href="<?php echo e(route('customer.order.index')); ?>"><?php echo app('translator')->get('My Orders'); ?></a>
+                                    <a class="dropdown-item" href="<?php echo e(route('customer.favorite.index')); ?>">Избранные товары</a>
+                                    <a class="dropdown-item" href="<?php echo e(route('customer.profile.index')); ?>"><?php echo app('translator')->get('Account Setting'); ?></a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="http://mdk.loc/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        Выход
+                                    </a>
+                                    <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" hidden>
+                                        <?php echo csrf_field(); ?>
+                                    </form>
+                                </div>
+                            </li>
+                        <?php endif; ?>
                     <?php endif; ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo e(route('cart.index')); ?>">

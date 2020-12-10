@@ -49,7 +49,7 @@
 				<div class="row border-bottom mx-0 py-2">
 					<div class="col"><a class="text-dark" href={{ route('guest.product', $product->id) }}>{{ $product->name }}</a></div>
 					<div class="col-auto">{{ $product->pivot->quantity }} шт.</div>
-					<div class="col-auto"><h6>{{ $product->price }} сом.</h6></div>
+					<div class="col-auto"><h6>{{ $product->pivot->price }} сом.</h6></div>
 				</div>
 			@endforeach
 			<div class="row mx-0 py-2">

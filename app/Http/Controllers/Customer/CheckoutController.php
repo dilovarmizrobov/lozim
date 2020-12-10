@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\User;
+use App\Mail\OrderShipped;
 use Cart;
+use Mail;
 
 class CheckoutController extends Controller
 {
@@ -41,6 +44,9 @@ class CheckoutController extends Controller
         }
 
         Cart::destroy();
+
+        foreach (User::query()->where('role', 'admin')->get() as $user)
+            Mail::to($user)->send(new OrderShipped($order));
 
         return redirect()->route('customer.order.show', $order->id);
     }

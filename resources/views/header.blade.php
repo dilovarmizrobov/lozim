@@ -15,31 +15,32 @@
                             </div>
                         </li>
                     @endguest
-                    @can('is_customer')
-                        <li class="dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre="">
-                                {{ Auth::user()->email }}
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('customer.index') }}">@lang('Customer') #{{ auth()->user()->id }}</a>
-                                <a class="dropdown-item" href="{{ route('customer.order.index') }}">@lang('My Orders')</a>
-                                <a class="dropdown-item" href="{{ route('customer.favorite.index') }}">Избранные товары</a>
-                                <a class="dropdown-item" href="{{ route('customer.profile.index') }}">@lang('Account Setting')</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="http://mdk.loc/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    Выход
+                    @auth
+                        @if (Auth::user()->can('is_admin'))
+                            <li class="nav-item">
+                                <a class="nav-link">Hello Admin!</a>
+                            </li>
+                        @else
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre="">
+                                    {{ Auth::user()->email }}
                                 </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                    @endcan
-                    @can('is_admin')
-                        <li class="nav-item">
-                            <a class="nav-link">Hello Admin!</a>
-                        </li>
-                    @endcan
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{ route('customer.index') }}">@lang('Customer') #{{ auth()->user()->id }}</a>
+                                    <a class="dropdown-item" href="{{ route('customer.order.index') }}">@lang('My Orders')</a>
+                                    <a class="dropdown-item" href="{{ route('customer.favorite.index') }}">Избранные товары</a>
+                                    <a class="dropdown-item" href="{{ route('customer.profile.index') }}">@lang('Account Setting')</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="http://mdk.loc/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        Выход
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endif
+                    @endauth
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('cart.index') }}">
                             <i class="fas fa-shopping-cart mr-2"></i>

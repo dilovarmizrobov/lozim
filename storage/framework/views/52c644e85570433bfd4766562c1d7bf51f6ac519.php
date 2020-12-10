@@ -47,7 +47,7 @@
 				<div class="row border-bottom mx-0 py-2">
 					<div class="col"><a class="text-dark" href=<?php echo e(route('guest.product', $product->id)); ?>><?php echo e($product->name); ?></a></div>
 					<div class="col-auto"><?php echo e($product->pivot->quantity); ?> шт.</div>
-					<div class="col-auto"><h6><?php echo e($product->price); ?> сом.</h6></div>
+					<div class="col-auto"><h6><?php echo e($product->pivot->price); ?> сом.</h6></div>
 				</div>
 			<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 			<div class="row mx-0 py-2">

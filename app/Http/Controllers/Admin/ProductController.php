@@ -19,7 +19,7 @@ use Mockery\Exception;
 
 class ProductController extends Controller
 {
-    private $pagination_limit = 4;
+    private $pagination_limit = 12;
     private $path_images_uploads = ProductImage::PATH_IMAGES_UPLOADS;
     private $path_images_products = ProductImage::PATH_IMAGES_PRODUCTS;
     private $image_limit = ProductImage::IMAGE_LIMIT;
@@ -31,7 +31,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Auth::user()->products();
+        $products = Product::query();
         $products = $this->search_by_name($products);
         $products = $products->orderByDesc('id')->paginate($this->pagination_limit);
 
