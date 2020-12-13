@@ -254,11 +254,11 @@ a[class*=card]:hover .title {
 }
 .card-product-grid .img-wrap {
     border-radius: 0.2rem 0.2rem 0 0;
-    height: 220px;
+    height: 200px;
 }
 .card-product-grid .info-wrap {
     overflow: hidden;
-    padding: 18px 20px;
+    padding: 18px;
 }
 .card-product-grid .bottom-wrap {
     padding: 18px;
@@ -313,7 +313,9 @@ a[class*=card]:hover .title {
 }
 
 .counter__field{
-    border: 1px solid #dee2e6;
+    border: 1px solid #007bff;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
     border-right: none;
     height: 30px;
     line-height: 30px;
@@ -326,7 +328,7 @@ a[class*=card]:hover .title {
 }
 
 .counter__field:hover{
-    background: #ededed;
+    background: #fbedff;
     transition: all 0.3s;
 }
 
@@ -339,7 +341,7 @@ a[class*=card]:hover .title {
 
 .counter__arrow{
     position: relative;
-    border: 1px solid #dee2e6;
+    border: 1px solid #007bff;
     cursor: pointer;
     display: block;
     height: 15px;
@@ -350,7 +352,7 @@ a[class*=card]:hover .title {
 }
 
 .counter__arrow:hover {
-    background: #ededed;
+    background: #fbedff;
     transition: all 0.3s;
 }
 
@@ -363,28 +365,33 @@ a[class*=card]:hover .title {
     width: 0;
     height: 0;
     border: 5px solid transparent;
-    border-bottom-color: #dddddd;
+    border-bottom-color: #007bff;
     border-top: 0;
 }
 
+.counter__arrow:first-child{
+    border-top-right-radius: 3px;
+}
+
 .counter__arrow:hover:before {
-    border-bottom-color: #4b4b4b;
+    border-bottom-color: #007bff;
     transition: all 0.3s;
 }
 
 .counter__arrow-down:before {
     top: 5px;
     border: 5px solid transparent;
-    border-top-color: #dddddd;
+    border-top-color: #007bff;
     border-bottom: 0;
 }
 
 .counter__arrow-down:hover:before {
-    border-top-color: #4b4b4b;
+    border-top-color: #007bff;
 }
 
 .counter__arrow-down {
     border-top: none;
+    border-bottom-right-radius: 3px;
 }
 
 /* ================== PAGES =================== */
@@ -438,7 +445,49 @@ a[class*=card]:hover .title {
 }
 
 
-/* ================ SECTION-FOOTER ==================  */
+/* Category Page */
+
+/*
+    Filter Widget
+*/
+
+.filter-widget {
+    border-radius: .25rem;
+    border: 1px solid #dee2e6;
+    padding: 10px 15px;
+    margin-bottom: 25px;
+}
+.filter-widget .fwc-title {
+    color: #272727;
+    margin: 4px 0;
+}
+.filter-widget .fwc-title.active {
+    color: #007bff;
+}
+.filter-widget a.fwc-title{
+    display: block;
+}
+
+.filter-catagories {
+    padding: 0;
+    margin: 0;
+}
+
+.filter-widget .filter-catagories li {
+    list-style: none;
+}
+
+.filter-widget .filter-catagories li a {
+    display: inline-block;
+    color: #636363;
+    font-size: 14px;
+}
+
+.filter-widget a.fwc-title:hover, .filter-widget .filter-catagories li a:hover{
+    color: #007bff;
+}
+
+    /* ================ SECTION-FOOTER ==================  */
 .section-footer ul li {
     margin-bottom: 5px;
 }

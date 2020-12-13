@@ -128,7 +128,7 @@
                                 @endforeach
                                 <div class="item item-add" style="{{ $image_limit === 0 ? 'display: none;' : '' }}">
                                     <div class="uploader">
-                                        <span class="ti-upload"></span>
+                                        <i class="fas fa-upload"></i>
                                     </div>
                                     <div class="loader spinner-grow" role="status" style="display: none">
                                         <span class="sr-only">Loading...</span>

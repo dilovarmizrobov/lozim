@@ -15,7 +15,6 @@ class CategoryController extends Controller
         $slugs = explode('/', $slug);
         $parent_id = null;
         $category = null;
-        $slug = '';
         $array_breadcrumb = [];
 
         for ($i = 0; $i < count($slugs); $i++) {
@@ -24,8 +23,7 @@ class CategoryController extends Controller
             if (!is_null($category)) $parent_id = $category->id;
             else abort(404);
 
-            $slug .= $slugs[$i] . '/';
-            array_push($array_breadcrumb, ['title'=>$category->name, 'href'=>$slug]);
+            array_push($array_breadcrumb, ['title'=>$category->name, 'href'=>$category->get_full_slug()]);
         }
 
         $filter_model = (new FilterModel($category));

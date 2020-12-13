@@ -8,7 +8,7 @@
             </div>
         </div>
     </section>
-    <section class="main-container mb-5">
+    <section class="main-container">
         <div class="container-fluid">
             <header class="border-bottom mb-4 pb-3">
                 <div class="row no-gutters">
@@ -19,8 +19,12 @@
                     @endforeach
                 </div>
             </header>
+        </div>
+    </section>
+    <section class="main-container mb-5">
+        <div class="container-fluid">
             @forelse($orders as $order)
-                <article class="card mb-5">
+                <article class="card mb-5 @if($loop->even) shadow @endif">
                     <header class="card-header">
                         <a href="#" class="float-right"><i class="fa fa-print"></i> @lang('Print')</a>
                         <strong class="d-inline-block text-dark mr-3">@lang('Order ID'): {{ $order->id }}</strong>
@@ -43,7 +47,7 @@
                                 <span class="text-success">Наличными</span>
                                 <p>
                                     @lang('Subtotal'): {{ $order->total }} с. <br>
-{{--                                    @lang('Shipping fee'):  5 с. <br>--}}
+                                    {{--                                    @lang('Shipping fee'):  5 с. <br>--}}
                                     <span class="b">@lang('Total'): {{ $order->total }} с. </span>
                                 </p>
                             </div>
@@ -66,7 +70,7 @@
                                         <figure class="itemside">
                                             <div class="aside"><img src="{{ $product->image_medium }}" class="img-sm"></div>
                                             <figcaption class="info">
-                                                <a href="#" class="title">{{ $product->name }}</a>
+                                                <a href="{{ route('guest.product', $product->id) }}" class="title">{{ $product->name }}</a>
                                             </figcaption>
                                         </figure>
                                     </td>

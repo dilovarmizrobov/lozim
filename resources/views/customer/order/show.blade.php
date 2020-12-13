@@ -14,7 +14,7 @@
                 <div class="col-7 col-lg-6 mb-4">
                     @foreach($order->products as $product)
                         <div class="row border-bottom mx-0 py-2">
-                            <div class="col"><a class="text-dark" href="http://doc.loc/shop/9">{{ $product->name }}</a></div>
+                            <div class="col"><a class="text-dark" href="{{ route('guest.product', $product->id) }}">{{ $product->name }}</a></div>
                             <div class="col-auto">{{ $product->pivot->quantity }} шт.</div>
                             <div class="col-auto">{{ $product->price }} с.</div>
                         </div>

@@ -35,7 +35,7 @@
                                         <figure class="itemside">
                                             <div class="aside"><img src="{{ $product->model->image_medium }}" class="img-sm"></div>
                                             <figcaption class="info">
-                                                <a href="#" class="title">{{ $product->name }}</a>
+                                                <a href="{{ route('guest.product', $product->id) }}" class="title">{{ $product->name }}</a>
                                             </figcaption>
                                         </figure>
                                     </td>

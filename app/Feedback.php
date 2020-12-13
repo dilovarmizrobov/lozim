@@ -6,13 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Feedback extends Model
 {
+    /**
+     * Relation Table
+     *
+     * @var array
+     */
     protected $table = 'feedbacks';
-    protected $fillable = [
-        'appeal',
-        'categoryAppeal',
-        'contactName',
-        'contactPhone',
-        'contactEmail',
-        'contactReview'
-    ];
+
+    /**
+     * Guarded columns
+     *
+     * @var array
+     */
+    protected $guarded = [];
 }

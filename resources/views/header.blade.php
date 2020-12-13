@@ -2,7 +2,7 @@
     <div class="main-container">
         <div class="container-fluid">
             <div class="row no-gutters">
-                <a class="navbar-brand" href="{{ route('guest.index') }}">Brand</a>
+                <a class="navbar-brand" href="{{ route('guest.index') }}">{{ env('APP_NAME') }}</a>
                 <ul class="navbar-nav ml-auto">
                     @guest
                         <li class="dropdown">

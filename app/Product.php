@@ -41,6 +41,12 @@ class Product extends Model
         return 'p' . $property_id . 'v' . $property_value_id;
     }
 
+    // Mutators
+    public function getAvailableAttribute($value)
+    {
+        return $value === 'on' ? true : false;
+    }
+
     public function getQuantityInCartAttribute() {
         $productId = $this->id;
         $duplicates = Cart::search(function ($cartItem) use ($productId) {

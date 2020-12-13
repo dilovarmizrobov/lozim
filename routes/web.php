@@ -17,6 +17,13 @@ Route::group(['namespace'=>'Guest', 'as'=>'guest.'], function () {
     Route::get('/product/{id}', 'PageController@product')->name('product');
     Route::get('/category/{slug}', 'CategoryController@index')->name('category');
     Route::get('/search', 'SearchController@index')->name('search');
+    Route::group([
+        'prefix' => 'feedback',
+        'as' => 'feedback.'
+    ], function () {
+        Route::get('/', 'PageController@feedbackCreate')->name('create');
+        Route::post('/', 'PageController@feedbackStore')->name('store');
+    });
 });
 
 Route::group(['prefix'=>'cart', 'as'=>'cart.'], function () {
