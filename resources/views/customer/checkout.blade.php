@@ -16,6 +16,60 @@
                 </div>
             @endif
             <div class="row">
+                <div class="col-7 mb-4">
+                    <section>
+                        <h5 class="mb-3">Ваш заказ</h5>
+                        @foreach (Cart::content() as $product)
+                            <div class="row border-bottom mx-0 py-2">
+                                <div class="col"><a class="text-dark" href="{{ route('guest.product', $product->id) }}">{{ $product->name }}</a></div>
+                                <div class="col-auto">{{ $product->qty }} <i class="las la-times" style="font-size: 12px"></i> {{ $product->price }} с.</div>
+                                <div class="col-auto">{{ $product->price * $product->qty }} с.</div>
+                            </div>
+                        @endforeach
+                        <div class="row mx-0 py-2">
+                            <div class="col-auto ml-auto">Сумма заказов:</div>
+                            <div class="col-auto font-weight-bold">{{ Cart::subtotal() }} с.</div>
+                        </div>
+                    </section>
+                    <section>
+                        <h5 class="mb-3">Тип доставки</h5>
+                        <div class="row mx-0 py-2">
+                            <div class="col">
+                                <div class="custom-control custom-switch">
+                                    <input type="radio" name="checkoutDelivery" value="regular" class="custom-control-input" id="regularDelivery" data-price="{{ $delivery_price }}" checked>
+                                    <label class="custom-control-label" for="regularDelivery">Обычная доставка</label>
+                                    <a data-toggle="collapse" href="#regularDeliveryCollapse" aria-expanded="false" aria-controls="regularDeliveryCollapse"><i class="fas fa-info-circle"></i></a>
+                                    <div class="collapse" id="regularDeliveryCollapse">
+                                        <p class="mt-2 small">
+                                            При сумме заказа свыше {{ $delivery_from }} сомони – ДОСТАВКА БЕСПЛАТНАЯ!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto regularDeliveryPrice"><span class="font-weight-bold">{{ $hasFreeShipping ? 'бесплатно.' : "$delivery_price с." }}</span></div>
+                        </div>
+                        <div class="row mx-0 py-2">
+                            <div class="col">
+                                <div class="custom-control custom-switch">
+                                    <input type="radio" name="checkoutDelivery" value="express" class="custom-control-input" id="expressDelivery" data-price="{{ $delivery_express_price }}">
+                                    <label class="custom-control-label" for="expressDelivery">Срочная доставка</label>
+                                    <a data-toggle="collapse" href="#expressDeliveryCollapse" aria-expanded="false" aria-controls="expressDeliveryCollapse"><i class="fas fa-info-circle"></i></a>
+                                    <div class="collapse" id="expressDeliveryCollapse">
+                                        <p class="mt-2 small">
+                                            Время доставки 2-3 ч.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto expressDeliveryPrice d-none"><span class="font-weight-bold">{{ $delivery_express_price }} с.</span></div>
+                        </div>
+                        <div class="row border-top mt-2 mx-0 py-2 font-weight-bold">
+                            <div class="col-auto ml-auto">ИТОГО:</div>
+                            <div class="col-auto"><span class="checkoutTotal">{{ $total }}</span> с.</div>
+                            <input type="hidden" name="checkoutTotal" value="{{ Cart::subtotal() }}">
+                        </div>
+                    </section>
+                </div>
                 <div class="col-5">
                     <h5 class="mb-3">Ваши данные</h5>
                     <form class="formValidate" method="POST" action="{{ route('customer.checkout.store') }}" novalidate>
@@ -65,22 +119,9 @@
                                 </span>
                             @enderror
                         </div>
+                        <input type="hidden" name="delivery" value="regular">
                         <button type="submit" class="btn btn-primary">Оформить заказ</button>
                     </form>
-                </div>
-                <div class="col-7 mb-4">
-                    <h5 class="mb-3">Ваш заказ</h5>
-                    @foreach (Cart::content() as $product)
-                        <div class="row border-bottom mx-0 py-2">
-                            <div class="col"><a class="text-dark" href="{{ route('guest.product', $product->id) }}">{{ $product->name }}</a></div>
-                            <div class="col-auto">{{ $product->qty }} <i class="las la-times" style="font-size: 12px"></i> {{ $product->price }} с.</div>
-                            <div class="col-auto">{{ $product->price * $product->qty }} с.</div>
-                        </div>
-                    @endforeach
-                    <div class="row mx-0 py-2 font-weight-bold">
-                        <div class="col-auto ml-auto">Итог:</div>
-                        <div class="col-auto">{{ Cart::subtotal() }} с.</div>
-                    </div>
                 </div>
             </div>
         </div>

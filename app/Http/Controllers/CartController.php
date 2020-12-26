@@ -11,7 +11,11 @@ class CartController extends Controller
 {
     public function index()
     {
-        return view('guest.cart');
+        $total = (double)str_replace(' ', '', Cart::subtotal());
+        $delivery_price = config('cart.delivery_price');
+        $delivery_from = config('cart.delivery_from');
+        $hasFreeShipping = $total > $delivery_from;
+        return view('guest.cart', compact('delivery_price', 'delivery_from', 'hasFreeShipping'));
     }
 
     public function add(Request $request)
@@ -33,9 +37,14 @@ class CartController extends Controller
                 ->associate(Product::class);
         }
 
+        $total = (double)str_replace(' ', '', Cart::subtotal());
+        $delivery_from = config('cart.delivery_from');
+        $hasFreeShipping = $total > $delivery_from;
+
         return [
-            'total_price'=>Cart::subtotal(),
-            'count_products'=>Cart::content()->count()
+            'total_price' => number_format($total, 2, '.', ' '),
+            'count_products' => Cart::content()->count(),
+            'hasFreeShipping' => $hasFreeShipping
         ];
     }
 

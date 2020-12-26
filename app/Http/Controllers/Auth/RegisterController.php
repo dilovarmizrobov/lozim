@@ -42,8 +42,6 @@ class RegisterController extends Controller
      */
     protected function redirectTo()
     {
-        if (Gate::check('is_customer')) return route('customer.index');
-
         if (Gate::check('is_admin')) return route('admin.index');
 
         return '/';

@@ -53,7 +53,7 @@ Route::group([
     'namespace'=> 'Customer',
     'middleware'=> ['web', 'auth', 'verified', 'customer']
 ], function () {
-    Route::get('/', 'CustomerController@index')->name('index');
+//    Route::get('/', 'CustomerController@index')->name('index');
     Route::group([
         'prefix'=> 'favorite',
         'as'=> 'favorite.'

@@ -26,10 +26,10 @@
                                     {{ Auth::user()->email }}
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ route('customer.index') }}">@lang('Customer') #{{ auth()->user()->id }}</a>
+{{--                                    <a class="dropdown-item" href="{{ route('customer.index') }}">@lang('Customer') #{{ auth()->user()->id }}</a>--}}
+                                    <a class="dropdown-item" href="{{ route('customer.profile.index') }}">@lang('Account Setting')</a>
                                     <a class="dropdown-item" href="{{ route('customer.order.index') }}">@lang('My Orders')</a>
                                     <a class="dropdown-item" href="{{ route('customer.favorite.index') }}">Избранные товары</a>
-                                    <a class="dropdown-item" href="{{ route('customer.profile.index') }}">@lang('Account Setting')</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="http://mdk.loc/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         Выход
@@ -62,9 +62,9 @@
                     <i class="las la-times hide"></i>
                 </div>
                 <div class="catalog-menu__list-content">
-                    <div class="catalog-menu__list-item">
-                        <a href="#">% Скидки</a>
-                    </div>
+{{--                    <div class="catalog-menu__list-item">--}}
+{{--                        <a href="#">% Скидки</a>--}}
+{{--                    </div>--}}
                     @foreach($categories as $category)
                         <div class="catalog-menu__list-item">
                             <a href="{{ route('guest.category', $category->get_full_slug()) }}">

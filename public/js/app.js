@@ -62,6 +62,14 @@ $(function () {
     if (location.pathname === '/') $('.js-catalogMenu').addClass('open');
 });
 
+// Settings
+$(function () {
+    'use strict';
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+});
+
 //Form Validation
 $(function() {
     'use strict';
@@ -133,9 +141,32 @@ $(function () {
                 $(".header_count_products").text(data.count_products);
                 $(".header_total_price").text(data.total_price);
                 subtotalHref.text(productCount * productPrice);
+
+                if (data.hasFreeShipping) {
+                    $('.freeShipping').removeClass('d-none');
+                    $('.paidShipping').addClass('d-none');
+                } else {
+                    $('.freeShipping').addClass('d-none');
+                    $('.paidShipping').removeClass('d-none');
+                }
             },
             xhr: App.loaderAnimationAjax,
         });
+    });
+
+    $('input[name="checkoutDelivery"]').change(function (e) {
+        if ($(this).val() === 'regular') {
+            $('.regularDeliveryPrice').removeClass('d-none');
+            $('.expressDeliveryPrice').addClass('d-none');
+        } else if ($(this).val() === 'express') {
+            $('.regularDeliveryPrice').addClass('d-none');
+            $('.expressDeliveryPrice').removeClass('d-none');
+        }
+
+        let total = (+ $('input[name="checkoutTotal"]').val() + $(this).data().price).toFixed(2);
+
+        $('input[name="delivery"]').val($(this).val());
+        $('.checkoutTotal').text(total);
     });
 
     $('.js-product-tofavorite').click(function () {

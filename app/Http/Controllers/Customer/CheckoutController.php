@@ -16,7 +16,14 @@ class CheckoutController extends Controller
             return redirect()->route('guest.index');
         }
 
-        return view('customer.checkout');
+        $total = (double)str_replace(' ', '', Cart::subtotal());
+        $delivery_price = config('cart.delivery_price');
+        $delivery_express_price = config('cart.delivery_express_price');
+        $delivery_from = config('cart.delivery_from');
+        $hasFreeShipping = $total > $delivery_from;
+        $total = number_format($total + ($hasFreeShipping ? 0 : $delivery_price), 2);
+
+        return view('customer.checkout', compact('total', 'delivery_price', 'delivery_express_price', 'delivery_from', 'hasFreeShipping'));
     }
 
     public function store(Request $request) {
@@ -25,13 +32,15 @@ class CheckoutController extends Controller
             'phone'=>'required|max:255',
             'address'=>'required|max:255',
             'comment'=>'max:600',
-            'contactAgree'=>'required|accepted'
+            'contactAgree'=>'required|accepted',
+            'delivery' => 'required|in:regular,express'
         ]);
 
         $user = auth()->user();
-        $total =(double)str_replace(' ', '', Cart::subtotal());
+        $total = (double)str_replace(' ', '', Cart::subtotal());
 
         $order = $user->orders()->create([
+            'delivery' => $request->delivery,
             'total'=> $total,
             'name'=> $request->name,
             'phone'=> $request->phone,

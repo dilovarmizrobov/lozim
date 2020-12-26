@@ -25,6 +25,25 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getIsNewOrderAttribute()
+    {
+        return $this->status->id === 1;
+    }
+
+    public function getGeneralTotalAttribute()
+    {
+        return number_format($this->total + $this->delivery_price, 2);
+    }
+
+    public function getDeliveryTypeAttribute()
+    {
+        if ($this->delivery === 'express') {
+            return 'Срочная доставка';
+        }
+
+        return 'Обычная доставка';
+    }
+
     public function getDateAttribute()
     {
         return $this->created_at->format('d M Y');
