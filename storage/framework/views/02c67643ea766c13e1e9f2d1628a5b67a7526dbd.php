@@ -46,42 +46,37 @@
                 </div>
             </header>
             <div class="row">
-                <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <div class="col-4 col-lg-3">
-                        <div href="#" class="card card-product-grid">
-                            <a href="#" class="img-wrap"><img src="<?php echo e($product->image_medium); ?>"></a>
-                            <figcaption class="info-wrap">
-                                <div class="fix-height">
-                                    <a href="#" class="title"><?php echo e($product->truncateName); ?></a>
-                                    <div class="price"><?php echo e($product->price); ?> с.</div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <div class="counter mr-3">
-                                        <input id="counter<?php echo e($product->id); ?>" type="text" value="<?php echo e($product->quantityInCart); ?>" class="counter__field js-counter__number" maxlength="4">
-                                        <div class="counter__arrow-block" role="group">
-                                            <span class="counter__arrow js-counter__plus" data-counter="#counter<?php echo e($product->id); ?>"></span>
-                                            <span class="counter__arrow counter__arrow-down js-counter__minus" data-counter="#counter<?php echo e($product->id); ?>"></span>
-                                        </div>
-                                    </div>
-                                    <div class="mr-3">
-                                        <button class="btn btn-sm btn-block btn-outline-primary js-product-tocart" data-url="<?php echo e(route('cart.add')); ?>" data-counter="#counter<?php echo e($product->id); ?>" data-product-id="<?php echo e($product->id); ?>">
-                                            <i class="fas fa-shopping-cart"></i>
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <button class="btn btn-sm btn-block btn-outline-primary js-product-tofavorite" data-url="<?php echo e(route('customer.favorite.toggle', $product->id)); ?>">
-                                            <?php if($product->isFavorite): ?>
-                                                <i class="fas fa-heart"></i>
-                                            <?php else: ?>
-                                                <i class="far fa-heart"></i>
-                                            <?php endif; ?>
-                                        </button>
-                                    </div>
-                                </div>
-                            </figcaption>
+                <div class="col-4 col-lg-3">
+                    <div class="filter-widget">
+                        <div class="fwc-title active">
+                            <span><?php echo e($category->name); ?></span>
+                            <ul class="filter-catagories ml-2">
+                                <?php $__currentLoopData = $category->children; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $child): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <li>
+                                        <a href="<?php echo e(route('guest.category', $child->get_full_slug())); ?>"><?php echo e($child->name); ?></a>
+                                    </li>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </ul>
+                        </div>
+                        <div class="filter-catagories">
+                            <?php $__currentLoopData = $category->neighbors(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $neighbor): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if($category->id == $neighbor->id): ?>
+                                    <?php continue; ?>
+                                <?php endif; ?>
+                                <a class="fwc-title" href="<?php echo e(route('guest.category', $neighbor->get_full_slug())); ?>"><?php echo e($neighbor->name); ?></a>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
                     </div>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="col-6 col-lg-4">
+                                <?php echo $__env->make('product.middle', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                            </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+                </div>
             </div>
             <div class="mt-4">
                 <?php echo e($products->withQueryString()->links()); ?>

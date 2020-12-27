@@ -80,7 +80,7 @@ class ProductController extends Controller
         $request->validate([
             'category_id' => 'required|integer|max:255',
             'name' => 'required|max:255',
-            'price' => 'required|integer|max:50000',
+            'price' => 'required|numeric|max:50000',
             'description' => 'required',
         ]);
 
@@ -169,7 +169,7 @@ class ProductController extends Controller
             DB::rollBack();
         }
 
-        return redirect()->route('admin.product.index')->with('success', 'Продукт успешно добавлена!');
+        return redirect()->route('admin.product.index')->with('success', 'Продукт был успешно добавлен!');
     }
 
     /**
@@ -207,7 +207,7 @@ class ProductController extends Controller
         // Validate
         $request->validate([
             'name' => 'required|max:255',
-            'price' => 'required|integer|max:50000',
+            'price' => 'required|numeric|max:50000',
             'description' => 'required',
         ]);
 
@@ -249,12 +249,16 @@ class ProductController extends Controller
                 }
             }
 
+            $delete_images = collect();
+
             foreach ($product->product_images as $product_image) {
                 if (!in_array($product_image->nameWithoutFormat, $imagesArray) || empty($imagesArray)) {
                     Storage::disk('public')->delete($product_image->ImagesDeletePath);
-                    $product_image->delete();
+                    $delete_images->push($product_image->id);
                 }
             }
+
+            ProductImage::destroy($delete_images);
 
             foreach ($product->product_images as $product_image) {
                 $positionImage = array_search($product_image->nameWithoutFormat, $imagesArray) + 1;
@@ -262,7 +266,7 @@ class ProductController extends Controller
             }
         }
 
-        return redirect(route('admin.product.index'))->with('success', 'Продукт была успешно обновлена!');
+        return redirect(route('admin.product.index'))->with('success', 'Продукт был успешно обновлен!');
     }
 
     /**

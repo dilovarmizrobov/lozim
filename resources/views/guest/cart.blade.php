@@ -93,7 +93,7 @@
                             </div>
                             <div class="d-flex pb-4 pt-2 align-items-center">
                                 <span class="ml-auto">
-                                    <button class="btn btn-sm" data-toggle="popover" data-placement="left" data-trigger="focus" data-content="При сумме заказа свыше {{ $delivery_from }} сомони – ДОСТАВКА БЕСПЛАТНАЯ!"><i class="fas fa-info-circle"></i></button>
+                                    <button class="btn btn-sm" data-toggle="popover" data-placement="left" data-trigger="focus" data-content="Бесплатная доставка при заказа свыше {{ $delivery_from }} сомони."><i class="fas fa-info-circle"></i></button>
                                 </span>
                                 <span class="mr-2">Доставка:</span>
                                 <span class="font-weight-bold">
@@ -114,7 +114,7 @@
                     </div>
                 @endif
                 <div class="alert alert-success mt-4">
-                    <p class="icontext"><i class="icon text-success fa fa-truck"></i> Бесплатная доставка от {{ $delivery_from }} сомони</p>
+                    <p class="icontext"><i class="icon text-success fa fa-truck"></i> Бесплатная доставка при заказа свыше {{ $delivery_from }} сомони.</p>
                 </div>
             </div>
         </div>

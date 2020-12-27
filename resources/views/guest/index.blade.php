@@ -4,8 +4,7 @@
     <div class="main-container">
         <section class="container-fluid my-5">
             <header class="section-heading">
-                <a href="#" class="btn btn-outline-primary float-right">See all</a>
-                <h4 class="section-title">Popular products</h4>
+                <h4 class="section-title">Популярные товары</h4>
             </header>
             <div class="row">
                 @foreach($products as $product)

@@ -26,17 +26,17 @@
             <div class="row">
                 @forelse($orders as $order)
                     <div class="col-lg-6">
-                        <article class="card mb-5">
+                        <article class="card mb-5 shadow">
                             <header class="card-header d-flex justify-content-between">
-                                <span>@lang('Order Date'): {{ $order->date }}</span>
-                                <strong>Статус: {{ $order->status->name }}</strong>
+                                <strong>@lang('Order Date'): {{ $order->date }}</strong>
+                                <span>Статус: {{ $order->status->name }}</span>
                             </header>
                             <div class="card-body border-bottom">
                                 <h6 class="text-muted">@lang('Payment'): <span class="text-success">Наличными</span></h6>
                                 <p>
                                     @lang('Subtotal'): {{ $order->total }} с. <br>
                                     {{ $order->delivery_type }}:  {{ $order->delivery_price }} с. <br>
-                                    <span class="b">@lang('Total'): {{ $order->general_total }} с. </span>
+                                    <strong>@lang('Total'): {{ $order->general_total }} с. </strong>
                                 </p>
                             </div>
                             <div class="table-responsive table-hover">
@@ -79,6 +79,9 @@
                         </div>
                     </div>
                 @endforelse
+            </div>
+            <div class="mt-4 d-flex justify-content-center">
+                {{ $orders->withQueryString()->links() }}
             </div>
         </div>
     </section>

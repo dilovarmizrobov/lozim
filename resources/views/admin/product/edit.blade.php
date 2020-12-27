@@ -105,7 +105,7 @@
                             <label for="inputDescription">Описание</label>
                         </div>
                         <div class="col-lg-8">
-                            <textarea name="description" class="form-control form-control-sm" id="inputDescription" required>{{ old('description') ? old('description') : $product->description }}</textarea>
+                            <textarea name="description" class="form-control form-control-sm" id="inputDescription" rows="8" required>{{ old('description') ? old('description') : $product->description }}</textarea>
                         </div>
                         <div class="col">
                             @if ($errors->has('description'))

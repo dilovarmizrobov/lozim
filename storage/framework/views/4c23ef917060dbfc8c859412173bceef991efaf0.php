@@ -105,7 +105,7 @@
                             <label for="inputDescription">Описание</label>
                         </div>
                         <div class="col-lg-8">
-                            <textarea name="description" class="form-control form-control-sm" id="inputDescription" required><?php echo e(old('description') ? old('description') : $product->description); ?></textarea>
+                            <textarea name="description" class="form-control form-control-sm" id="inputDescription" rows="8" required><?php echo e(old('description') ? old('description') : $product->description); ?></textarea>
                         </div>
                         <div class="col">
                             <?php if($errors->has('description')): ?>
@@ -128,7 +128,7 @@
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <div class="item item-add" style="<?php echo e($image_limit === 0 ? 'display: none;' : ''); ?>">
                                     <div class="uploader">
-                                        <span class="ti-upload"></span>
+                                        <i class="fas fa-upload"></i>
                                     </div>
                                     <div class="loader spinner-grow" role="status" style="display: none">
                                         <span class="sr-only">Loading...</span>

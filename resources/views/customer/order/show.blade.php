@@ -39,7 +39,7 @@
                             <span class="text-success">Наличными</span>
                             <p>
                                 @lang('Subtotal'): {{ $order->total }} с. <br>
-                                {{ $order->delivery_type }}:  {{ $order->delivery_price }} с. <br>
+                                {{ $order->delivery_type }}: {{ $order->delivery_price }} с. <br>
                                 <span class="b">@lang('Total'): {{ $order->general_total }} с. </span>
                             </p>
                         </div>

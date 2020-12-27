@@ -4,6 +4,8 @@
 <br>
 Номер телефона: <b>{{ $order->phone }}</b>
 <br>
+{{ $order->delivery_type }}: <b>{{ $order->delivery_price }} с.</b>
+<br>
 Адрес доставки: <b>{{ $order->address }}</b>
 <br>
 Комментарии к заказу: <b>{{ $order->comment }}</b>
@@ -14,4 +16,4 @@
         {{ $product->name }} / {{ $product->pivot->quantity }} шт. / {{ $product->pivot->price }} руб. / {{ $product->pivot->quantity * $product->pivot->price }} руб.
     </div>
 @endforeach
-<h3>Итог: {{ $order->total }} руб.</h3>
+<h3>Итог: {{ $order->general_total }} руб.</h3>

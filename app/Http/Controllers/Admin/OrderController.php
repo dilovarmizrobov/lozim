@@ -22,8 +22,6 @@ class OrderController extends Controller
         $orders = $this->search_by_id($orders)->orderBy('id', 'desc')->get();
         $statuses = OrderStatus::all();
 
-        foreach ($orders as $order) $order->data = $order->created_at->format('H:i / d-m-y');
-
         return view('admin.order.index', ['orders'=>$orders, 'statuses'=>$statuses]);
     }
 

@@ -46,6 +46,11 @@ class Order extends Model
 
     public function getDateAttribute()
     {
-        return $this->created_at->format('d M Y');
+        return $this->created_at->format('d.m.Y');
+    }
+
+    public function getDateAndTimeAttribute()
+    {
+        return $this->created_at->format('H:i / d.m.y');
     }
 }

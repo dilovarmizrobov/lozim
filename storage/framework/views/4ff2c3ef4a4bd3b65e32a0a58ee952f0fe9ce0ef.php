@@ -20,7 +20,7 @@
                         <table class="table table-borderless table-shopping-cart">
                             <thead class="text-muted">
                                 <tr class="small text-uppercase">
-                                    <th scope="col">Наименование</th>
+                                    <th scope="col">Товар</th>
                                     <th scope="col" width="100">Цена</th>
                                     <th scope="col" width="145">Количество</th>
                                     <th scope="col" width="100">Сумма</th>
@@ -34,7 +34,7 @@
                                         <figure class="itemside">
                                             <div class="aside"><img src="<?php echo e($product->model->image_medium); ?>" class="img-sm"></div>
                                             <figcaption class="info">
-                                                <a href="#" class="title"><?php echo e($product->name); ?></a>
+                                                <a href="<?php echo e(route('guest.product', $product->id)); ?>" class="title"><?php echo e($product->name); ?></a>
                                             </figcaption>
                                         </figure>
                                     </td>
@@ -86,9 +86,19 @@
                             </tbody>
                         </table>
                         <div class="card-body border-top">
-                            <div class="d-flex pb-4 pt-3">
-                                <h5 class="mr-3 ml-auto">Итог:</h5>
-                                <h5 class="header_total_price"><?php echo e(Cart::subtotal()); ?> с.</h5>
+                            <div class="d-flex pt-2">
+                                <h5 class="mr-3 ml-auto">Сумма заказов:</h5>
+                                <h5><span class="header_total_price"><?php echo e(Cart::subtotal()); ?></span> с.</h5>
+                            </div>
+                            <div class="d-flex pb-4 pt-2 align-items-center">
+                                <span class="ml-auto">
+                                    <button class="btn btn-sm" data-toggle="popover" data-placement="left" data-trigger="focus" data-content="Бесплатная доставка при заказа свыше <?php echo e($delivery_from); ?> сомони."><i class="fas fa-info-circle"></i></button>
+                                </span>
+                                <span class="mr-2">Доставка:</span>
+                                <span class="font-weight-bold">
+                                    <span class="freeShipping<?php echo e($hasFreeShipping ? '' : ' d-none'); ?>">бесплатно.</span>
+                                    <span class="paidShipping<?php echo e(!$hasFreeShipping ? '' : ' d-none'); ?>"><?php echo e($delivery_price); ?> с.</span>
+                                </span>
                             </div>
                             <div>
                                 <a href="<?php echo e(route('customer.checkout.index')); ?>" class="btn btn-primary float-md-right">Оформить заказ <i class="fa fa-chevron-right"></i></a>
@@ -103,7 +113,7 @@
                     </div>
                 <?php endif; ?>
                 <div class="alert alert-success mt-4">
-                    <p class="icontext"><i class="icon text-success fa fa-truck"></i> Free Delivery within 1-2 weeks</p>
+                    <p class="icontext"><i class="icon text-success fa fa-truck"></i> Бесплатная доставка при заказа свыше <?php echo e($delivery_from); ?> сомони.</p>
                 </div>
             </div>
         </div>

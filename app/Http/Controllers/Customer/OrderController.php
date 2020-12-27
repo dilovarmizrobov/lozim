@@ -21,7 +21,7 @@ class OrderController extends Controller
     {
         $sorting_items = OrderStatus::all();
         $query_orders = Order::where('user_id', Auth::id())->latest();
-        $orders = $this->sorting($query_orders, $request, $sorting_items);
+        $orders = $this->sorting($query_orders, $request, $sorting_items)->paginate(8);
 
         return view('customer.order.index', compact('orders', 'sorting_items'));
     }
@@ -49,6 +49,6 @@ class OrderController extends Controller
             }
         }
 
-        return $queryOrders->get();
+        return $queryOrders;
     }
 }

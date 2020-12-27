@@ -2,7 +2,7 @@
     <div class="main-container">
         <div class="container-fluid">
             <div class="row no-gutters">
-                <a class="navbar-brand" href="<?php echo e(route('guest.index')); ?>">Brand</a>
+                <a class="navbar-brand" href="<?php echo e(route('guest.index')); ?>"><?php echo e(env('APP_NAME')); ?></a>
                 <ul class="navbar-nav ml-auto">
                     <?php if(auth()->guard()->guest()): ?>
                         <li class="dropdown">
@@ -27,10 +27,10 @@
 
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="<?php echo e(route('customer.index')); ?>"><?php echo app('translator')->get('Customer'); ?> #<?php echo e(auth()->user()->id); ?></a>
+
+                                    <a class="dropdown-item" href="<?php echo e(route('customer.profile.index')); ?>"><?php echo app('translator')->get('Account Setting'); ?></a>
                                     <a class="dropdown-item" href="<?php echo e(route('customer.order.index')); ?>"><?php echo app('translator')->get('My Orders'); ?></a>
                                     <a class="dropdown-item" href="<?php echo e(route('customer.favorite.index')); ?>">Избранные товары</a>
-                                    <a class="dropdown-item" href="<?php echo e(route('customer.profile.index')); ?>"><?php echo app('translator')->get('Account Setting'); ?></a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="http://mdk.loc/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         Выход
@@ -63,9 +63,9 @@
                     <i class="las la-times hide"></i>
                 </div>
                 <div class="catalog-menu__list-content">
-                    <div class="catalog-menu__list-item">
-                        <a href="#">% Скидки</a>
-                    </div>
+
+
+
                     <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="catalog-menu__list-item">
                             <a href="<?php echo e(route('guest.category', $category->get_full_slug())); ?>">

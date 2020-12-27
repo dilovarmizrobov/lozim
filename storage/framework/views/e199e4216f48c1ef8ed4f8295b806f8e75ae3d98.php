@@ -2,7 +2,7 @@
 <html lang="<?php echo e(app()->getLocale()); ?>">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=0.4, shrink-to-fit=no" />
         <meta name="description" content="">
         <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
         <title><?php echo e(env('APP_NAME')); ?></title>

@@ -22,8 +22,13 @@
                         @foreach (Cart::content() as $product)
                             <div class="row border-bottom mx-0 py-2">
                                 <div class="col"><a class="text-dark" href="{{ route('guest.product', $product->id) }}">{{ $product->name }}</a></div>
-                                <div class="col-auto">{{ $product->qty }} <i class="las la-times" style="font-size: 12px"></i> {{ $product->price }} с.</div>
-                                <div class="col-auto">{{ $product->price * $product->qty }} с.</div>
+                                <div class="col-auto">
+                                    <span>{{ $product->qty }}</span>
+                                    <i class="las la-times" style="font-size: 12px"></i>
+                                    <span>{{ $product->price }} с.</span>
+                                    <i class="las la-long-arrow-alt-right" style="font-size: 12px"></i>
+                                    <span>{{ $product->price * $product->qty }} с.</span>
+                                </div>
                             </div>
                         @endforeach
                         <div class="row mx-0 py-2">

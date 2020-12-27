@@ -38,14 +38,23 @@ class CheckoutController extends Controller
 
         $user = auth()->user();
         $total = (double)str_replace(' ', '', Cart::subtotal());
+        $delivery_from = config('cart.delivery_from');
+        $delivery_price = 0;
+
+        if ($request->delivery === 'express') {
+            $delivery_price = config('cart.delivery_express_price');
+        } elseif ($request->delivery === 'regular' && $total < $delivery_from) {
+            $delivery_price = config('cart.delivery_price');
+        }
 
         $order = $user->orders()->create([
             'delivery' => $request->delivery,
-            'total'=> $total,
-            'name'=> $request->name,
-            'phone'=> $request->phone,
-            'address'=> $request->address,
-            'comment'=> $request->comment
+            'delivery_price' => $delivery_price,
+            'total' => $total,
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'comment' => $request->comment
         ]);
 
         foreach (Cart::content() as $item) {

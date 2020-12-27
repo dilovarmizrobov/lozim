@@ -12,7 +12,7 @@ class PageController extends Controller
 {
     public function index()
     {
-        $products = Product::orderBy('id', 'desc')->limit(12)->get();
+        $products = Product::inRandomOrder()->limit(12)->get();
 
         return view('guest.index', compact('products'));
     }

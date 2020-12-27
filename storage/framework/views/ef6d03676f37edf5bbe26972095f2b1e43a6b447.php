@@ -109,7 +109,7 @@
                                 <label for="inputDescription">Описание</label>
                             </div>
                             <div class="col-lg-8">
-                                <textarea name="description" class="form-control form-control-sm" id="inputDescription" required><?php echo e(old('description')); ?></textarea>
+                                <textarea name="description" class="form-control form-control-sm" id="inputDescription" rows="8" required><?php echo e(old('description')); ?></textarea>
                             </div>
                             <div class="col">
                                 <?php if($errors->has('description')): ?>
