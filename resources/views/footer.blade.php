@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-auto text-muted">
                     <span class="px-2">info@lozim.store</span>
-                    <span class="px-2">+992-900-00-00-00</span>
+                    <span class="px-2">+992-987-01-23-74</span>
                 </div>
             </section>
         </div>

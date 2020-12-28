@@ -18,15 +18,13 @@ class SearchController extends Controller
     {
         $searchText = $request->search;
         $sort = $request->sort;
-        $products = Product::query();
 
         if (is_null($request->search)) {
-            $products->inRandomOrder();
-        } else {
-            $searchQueryProduct = $this->search($products, $request);
-            $products = $this->sorting($searchQueryProduct, $request);
+            return redirect()->back();
         }
 
+        $searchQueryProduct = $this->search(Product::query(), $request);
+        $products = $this->sorting($searchQueryProduct, $request);
         $products = $products->paginate(12);
 
         return view('guest.search', compact('searchText', 'sort', 'products'));

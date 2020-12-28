@@ -115,7 +115,7 @@
                             <textarea id="formComment" class="form-control form-control-sm" name="comment"></textarea>
                         </div>
                         <div class="form-group custom-control custom-checkbox">
-                            <input id="formContactAgree" type="checkbox" class="custom-control-input @error('contactAgree') is-invalid @enderror" name="contactAgree" required>
+                            <input id="formContactAgree" type="checkbox" class="custom-control-input @error('contactAgree') is-invalid @enderror" name="contactAgree" checked required>
                             <label for="formContactAgree" class="custom-control-label">Я ознакомлен с содержанием пользовательского соглашения.</label>
 
                             @error('contactAgree')

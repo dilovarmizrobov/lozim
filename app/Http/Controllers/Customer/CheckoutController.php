@@ -17,11 +17,12 @@ class CheckoutController extends Controller
         }
 
         $total = (double)str_replace(' ', '', Cart::subtotal());
-        $delivery_price = config('cart.delivery_price');
         $delivery_express_price = config('cart.delivery_express_price');
+        $delivery_price = config('cart.delivery_price');
         $delivery_from = config('cart.delivery_from');
         $hasFreeShipping = $total > $delivery_from;
         $total = number_format($total + ($hasFreeShipping ? 0 : $delivery_price), 2);
+        $delivery_price = $hasFreeShipping ? 0 : $delivery_price;
 
         return view('customer.checkout', compact('total', 'delivery_price', 'delivery_express_price', 'delivery_from', 'hasFreeShipping'));
     }

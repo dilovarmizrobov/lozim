@@ -50,19 +50,19 @@
             <div class="row">
                 <div class="col-4 col-lg-3">
                     <div class="filter-widget">
-                        <div class="fwc-title active">
-                            <span>{{ $category->name }}</span>
-                            <ul class="filter-catagories ml-2">
-                                @foreach($category->children as $child)
-                                    <li>
-                                        <a href="{{ route('guest.category', $child->get_full_slug()) }}">{{ $child->name }}</a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
                         <div class="filter-catagories">
                             @foreach($category->neighbors() as $neighbor)
                                 @if($category->id == $neighbor->id)
+                                    <div class="fwc-title active">
+                                        <span>{{ $category->name }}</span>
+                                        <ul class="filter-catagories ml-2">
+                                            @foreach($category->children as $child)
+                                                <li>
+                                                    <a href="{{ route('guest.category', $child->get_full_slug()) }}">{{ $child->name }}</a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                     @continue
                                 @endif
                                 <a class="fwc-title" href="{{ route('guest.category', $neighbor->get_full_slug()) }}">{{ $neighbor->name }}</a>
