@@ -17,7 +17,16 @@
                 </form>
             </div>
 		</div>
-		<div class="mt-4">
+        <section class="border-bottom my-3 pb-3">
+            <div class="row no-gutters">
+                @foreach($statuses as $item)
+                    <div class="col-auto mr-2">
+                        <a href="{{ route('admin.order.index', ['sort' => $item->slug]) }}" class="text-dark">{{ $item->sort_name }}</a>
+                    </div>
+                @endforeach
+            </div>
+        </section>
+        <div class="mt-4">
             @if(session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}

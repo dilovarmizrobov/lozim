@@ -75,6 +75,10 @@
                     <div class="col">{{ $order->delivery_type }}</div>
                     <div class="col-auto"><h6>{{ $order->delivery_price }} с.</h6></div>
                 </div>
+                <div class="row py-2 border-bottom">
+                    <div class="col">Дата доставки:</div>
+                    <div class="col-auto"><h6>{{ $order->delivery_date }}</h6></div>
+                </div>
                 <div class="text-center mt-5">
                     <h4>Итого: {{ $order->generalTotal }} с.</h4>
                 </div>

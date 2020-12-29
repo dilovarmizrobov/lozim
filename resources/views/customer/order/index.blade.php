@@ -36,6 +36,7 @@
                                 <p>
                                     @lang('Subtotal'): {{ $order->total }} с. <br>
                                     {{ $order->delivery_type }}:  {{ $order->delivery_price }} с. <br>
+                                    Дата доставки: {{ $order->delivery_date }}<br>
                                     <strong>@lang('Total'): {{ $order->general_total }} с. </strong>
                                 </p>
                             </div>

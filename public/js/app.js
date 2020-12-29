@@ -164,8 +164,6 @@ $(function () {
         }
 
         let total = (+ $('input[name="checkoutTotal"]').val() + $(this).data().price).toFixed(2);
-
-        $('input[name="delivery"]').val($(this).val());
         $('.checkoutTotal').text(total);
     });
 

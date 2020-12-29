@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Auth;
 use DB;
+use Carbon\Carbon;
 
 class Order extends Model
 {
@@ -52,5 +53,10 @@ class Order extends Model
     public function getDateAndTimeAttribute()
     {
         return $this->created_at->format('H:i / d.m.y');
+    }
+
+    public function getDeliveryDateAttribute($value)
+    {
+        return Carbon::parse($value)->format('H:i / d.m.Y');
     }
 }

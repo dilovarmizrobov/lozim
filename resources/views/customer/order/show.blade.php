@@ -31,6 +31,7 @@
                                 Имя: {{ $order->name }} <br>
                                 Телефон: {{ $order->phone }} <br>
                                 Адрес: {{ $order->address }} <br>
+                                Дата доставки: {{ $order->delivery_date }}<br>
                                 Комментарии к заказу: {{ $order->comment }}
                             </p>
                         </div>
