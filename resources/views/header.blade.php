@@ -52,90 +52,94 @@
         </div>
     </div>
 </nav>
-<div class="main-container mt-5 pt-5">
+<div class="main-container mt-4">
     <section class="container-fluid">
-        <div class="row catalog-menu js-catalogMenu">
-            <div class="col-4 col-lg-3">
-                <div class="catalog-menu__title js-toggleCatalogMenu">
-                    <span>Каталог товаров</span>
-                    <i class="las la-bars show"></i>
-                    <i class="las la-times hide"></i>
+        <div class="catalog-menu js-catalogMenu">
+            <div class="row">
+                <div class="col-4 col-lg-3">
+                    <div class="catalog-menu__title js-toggleCatalogMenu">
+                        <span>Каталог товаров</span>
+                        <i class="las la-bars show"></i>
+                        <i class="las la-times hide"></i>
+                    </div>
                 </div>
-                <div class="catalog-menu__list-content">
-{{--                    <div class="catalog-menu__list-item">--}}
-{{--                        <a href="#">% Скидки</a>--}}
-{{--                    </div>--}}
-                    @foreach($categories as $category)
-                        <div class="catalog-menu__list-item">
-                            <a href="{{ route('guest.category', $category->get_full_slug()) }}">
-                                <span>{{ $category->name }}</span>
-                                @if(!$category->children->isEmpty())
-                                    <i class="las la-angle-right"></i>
-                                @endif
-                            </a>
-                            @if(!$category->children->isEmpty())
-                                <div class="catalog-menu__submenu border">
-                                    @foreach($category->children as $child)
-                                        <div class="catalog-menu__submenu__list-item">
-                                            <a href="{{ route('guest.category', $child->get_full_slug()) }}">
-                                                <span>{{ $child->name }}</span>
-                                            </a>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endif
+                <div class="col">
+                    <form action="{{ route('guest.search') }}" method="GET" class="search">
+                        <div class="input-group w-100">
+                            <input type="text" class="form-control" name="search" value="{{ request()->search }}" placeholder="Введите слово для поиска">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">
+                                    Найти
+                                </button>
+                            </div>
                         </div>
-                    @endforeach
+                    </form>
                 </div>
             </div>
-            <div class="col">
-                <form action="{{ route('guest.search') }}" method="GET" class="search">
-                    <div class="input-group w-100">
-                        <input type="text" class="form-control" name="search" value="{{ request()->search }}" placeholder="Введите слово для поиска">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">
-                                Найти
-                            </button>
-                        </div>
-                    </div>
-                </form>
-                <div id="carouselMainCaptions" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carouselMainCaptions" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselMainCaptions" data-slide-to="1"></li>
-                        <li data-target="#carouselMainCaptions" data-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="https://bootstrap-ecommerce.com/bootstrap-ecommerce-html/images/banners/2.jpg" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>First slide label</h5>
-                                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img src="https://bootstrap-ecommerce.com/bootstrap-ecommerce-html/images/banners/2.jpg" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Second slide label</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img src="https://bootstrap-ecommerce.com/bootstrap-ecommerce-html/images/banners/2.jpg" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Third slide label</h5>
-                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+            <div class="catalogMenu-content">
+                <div class="row mt-4">
+                    <div class="col-4 col-lg-3">
+                        <div class="catalog-menu__list-content">
+                            <div class="catalog-menu__list-content-box">
+                                <div class="catalog-menu__list-item">
+                                    <a href="#">% Скидки</a>
+                                </div>
+                                @foreach($categories as $category)
+                                    <div class="catalog-menu__list-item">
+                                        <a href="{{ route('guest.category', $category->get_full_slug()) }}">
+                                            <span>{{ $category->name }}</span>
+                                            @if(!$category->children->isEmpty())
+                                                <i class="las la-angle-right"></i>
+                                            @endif
+                                        </a>
+                                        @if(!$category->children->isEmpty())
+                                            <div class="catalog-menu__submenu border">
+                                                @foreach($category->children as $child)
+                                                    <div class="catalog-menu__submenu__list-item">
+                                                        <a href="{{ route('guest.category', $child->get_full_slug()) }}">
+                                                            <span>{{ $child->name }}</span>
+                                                        </a>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        @endif
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
-                    <a class="carousel-control-prev" href="#carouselMainCaptions" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselMainCaptions" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+                    <div class="col">
+                        <div id="carouselMainCaptions" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carouselMainCaptions" data-slide-to="0" class="active"></li>
+                                <li data-target="#carouselMainCaptions" data-slide-to="1"></li>
+                                <li data-target="#carouselMainCaptions" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="/img/banner1.jpg" class="d-block w-100" alt="...">
+{{--                                    <div class="carousel-caption d-none d-md-block">--}}
+{{--                                        <h5>First slide label</h5>--}}
+{{--                                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>--}}
+{{--                                    </div>--}}
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="/img/banner2.jpg" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="/img/banner3.jpg" class="d-block w-100" alt="...">
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselMainCaptions" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselMainCaptions" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

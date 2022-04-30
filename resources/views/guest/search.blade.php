@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <section class="bg-light py-2 mt-3">
+    <section class="mt-3">
         <div class="main-container">
             <div class="container-fluid">
                 <nav>
@@ -10,33 +10,35 @@
                         <li class="breadcrumb-item active" aria-current="page">{{ $searchText }}</li>
                     </ol>
                 </nav>
-                <h4 class="title-page">Результаты поиска по запросу " {{ $searchText }} " ( {{ $products->total() }} )</h4>
+                <header class="section-heading">
+                    <h4 class="section-title">Результаты поиска по запросу " {{ $searchText }} " ( {{ $products->total() }} )</h4>
+                </header>
             </div>
         </div>
     </section>
-    <section class="main-container mb-5 mt-2">
+    <section class="main-container mb-5">
         <div class="container-fluid">
-            <header class="border-bottom mb-4 pb-3">
+            <header class="mb-3">
                 <div class="row no-gutters">
                     <div class="col-auto mr-2">
                         @if($sort === 'newly')
-                            <span class="text-success">Новые</span>
+                            <a href="{{ route('guest.search', ['search' => $searchText]) }}" class="text-primary">Новые</a>
                         @else
-                            <a href="{{ route('guest.search', ['search' => $searchText, 'sort' => 'newly']) }}" class="text-dark">Новые</a>
+                            <a href="{{ route('guest.search', ['search' => $searchText, 'sort' => 'newly']) }}" class="title-link">Новые</a>
                         @endif
                     </div>
                     <div class="col-auto mr-2">
                         @if($sort === 'priceup')
-                            <span class="text-success">Дешевые</span>
+                            <a href="{{ route('guest.search', ['search' => $searchText]) }}" class="text-primary">Дешевые</a>
                         @else
-                            <a href="{{ route('guest.search', ['search' => $searchText, 'sort' => 'priceup']) }}" class="text-dark">Дешевые</a>
+                            <a href="{{ route('guest.search', ['search' => $searchText, 'sort' => 'priceup']) }}" class="title-link">Дешевые</a>
                         @endif
                     </div>
                     <div class="col-auto mr-2">
                         @if($sort === 'pricedown')
-                            <span class="text-success">Дорогие</span>
+                            <a href="{{ route('guest.search', ['search' => $searchText]) }}" class="text-primary">Дорогие</a>
                         @else
-                            <a href="{{ route('guest.search', ['search' => $searchText, 'sort' => 'pricedown']) }}" class="text-dark">Дорогие</a>
+                            <a href="{{ route('guest.search', ['search' => $searchText, 'sort' => 'pricedown']) }}" class="title-link">Дорогие</a>
                         @endif
                     </div>
                 </div>

@@ -95,15 +95,12 @@ Route::group([
     Route::post('/product/upload-image', 'ProductController@upload_image')->name('product.upload_image');
     Route::resource('/product', 'ProductController')->except('show');
     Route::resource('/order', 'OrderController');
-    Route::resource('feedback', 'FeedbackController', ['except'=>['create', 'store']]);
-    Route::group(['as'=>'categories.properties.'], function () {
-        Route::get('categories/{id}/properties', 'CategoryPropertyController@index')->name('index');
-        Route::get('categories/{id}/properties/create', 'CategoryPropertyController@create')->name('create');
-        Route::post('categories/{id}/properties', 'CategoryPropertyController@store')->name('store');
-        Route::delete('categories/{id}/properties}', 'CategoryPropertyController@destroy')->name('destroy');
+    Route::group(['prefix' => 'delivery', 'as' => 'delivery.'], function () {
+        Route::get('/', 'DeliveryController@index')->name('index');
+        Route::get('/product/{id}', 'DeliveryController@product')->name('product');
+        Route::get('/products', 'DeliveryController@products')->name('products');
     });
+    Route::resource('feedback', 'FeedbackController', ['except'=>['create', 'store']]);
     Route::resource('categories', 'CategoryController', ['except'=>['show']]);
-    Route::resource('properties', 'PropertyController')->except(['show']);
-    Route::resource('properties.property_values', 'PropertyValueController')->shallow()->except(['show']);
 });
 

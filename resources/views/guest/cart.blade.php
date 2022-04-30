@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <section class="p-3 my-3 bg-light">
+    <section class="p-3 my-3">
         <div class="main-container">
             <div class="container-fluid">
                 <h3 class="title-page">Корзина</h3>
@@ -25,7 +25,7 @@
                                     <th scope="col" width="100">Цена</th>
                                     <th scope="col" width="145">Количество</th>
                                     <th scope="col" width="100">Сумма</th>
-                                    <th scope="col" width="80"></th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,7 +35,7 @@
                                         <figure class="itemside">
                                             <div class="aside"><img src="{{ $product->model->image_medium }}" class="img-sm"></div>
                                             <figcaption class="info">
-                                                <a href="{{ route('guest.product', $product->id) }}" class="title">{{ $product->name }}</a>
+                                                <a href="{{ route('guest.product', $product->id) }}" class="title title-link">{{ $product->name }}</a>
                                             </figcaption>
                                         </figure>
                                     </td>
@@ -46,7 +46,7 @@
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center justify-content-center">
-                                            <div class="counter mr-3">
+                                            <div class="counter mr-2">
                                                 <input id="counter{{ $product->id }}" type="text" value="{{ $product->model->quantityInCart }}" class="counter__field js-counter__number" maxlength="4">
                                                 <div class="counter__arrow-block" role="group">
                                                     <span class="counter__arrow js-counter__plus" data-counter="#counter{{ $product->id }}"></span>
@@ -102,40 +102,40 @@
                                 </span>
                             </div>
                             <div>
-                                <a href="{{ route('customer.checkout.index') }}" class="btn btn-primary float-md-right">Оформить заказ <i class="fa fa-chevron-right"></i></a>
-                                <a href="{{ route('guest.index') }}" class="btn btn-light border"><i class="fa fa-chevron-left"></i> Продолжить покупки</a>
+                                <a href="{{ route('customer.checkout.index') }}" class="btn btn-primary float-md-right">
+                                    <span>Оформить заказ</span>
+                                    <i class="fa fa-xs fa-chevron-right"></i>
+                                </a>
+                                <a href="{{ route('guest.index') }}" class="btn btn-light border">
+                                    <i class="fa fa-xs fa-chevron-left"></i>
+                                    <span>Продолжить покупки</span>
+                                </a>
                             </div>
                         </div>
                     </div>
+                    <div class="alert alert-success mt-3 mb-5">
+                        <p class="icontext"><i class="icon text-success fa fa-truck"></i> Бесплатная доставка при заказе свыше {{ $delivery_from }} сомони.</p>
+                    </div>
                 @else
-                    <div class="my-5 text-center">
-                        <h3 class="mb-3">Ваша корзина пуста!</h3>
-                        <a href="{{ route('guest.index') }}" class="btn btn-primary">Продолжить покупки</a>
+                    <div class="my-5 py-5 text-center">
+                        <h4 class="mb-3">Ваша корзина пуста!</h4>
+                        <a href="{{ route('guest.index') }}" class="btn btn-sm btn-primary">Продолжить покупки</a>
                     </div>
                 @endif
-                <div class="alert alert-success mt-4">
-                    <p class="icontext"><i class="icon text-success fa fa-truck"></i> Бесплатная доставка при заказе свыше {{ $delivery_from }} сомони.</p>
-                </div>
             </div>
         </div>
     </section>
-    <section class="section-name bg-light py-3 my-5">
-        <div class="main-container">
-            <div class="container-fluid">
-                <h6>Payment and refund policy</h6>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            </div>
-        </div>
-    </section>
+{{--    <section class="section-name bg-light pb-3 my-5">--}}
+{{--        <div class="main-container">--}}
+{{--            <div class="container-fluid">--}}
+{{--                <h6>Payment and refund policy</h6>--}}
+{{--                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod--}}
+{{--                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,--}}
+{{--                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo--}}
+{{--                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse--}}
+{{--                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non--}}
+{{--                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </section>--}}
 @endsection

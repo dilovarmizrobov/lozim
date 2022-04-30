@@ -23,7 +23,9 @@
     <![endif]-->
 
     @include('header')
-    @yield('content')
+    <div class="min-height-container">
+        @yield('content')
+    </div>
     @include('footer')
 
     <!-- page-loader -->

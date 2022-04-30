@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <section class="p-3 my-3 bg-light">
+    <section class="p-3 my-3">
         <div class="main-container">
             <div class="container-fluid">
                 <h4 class="title-page">Личный кабинет</h4>
@@ -16,7 +16,7 @@
                 </div>
             @endif
             <div class="row">
-                <div class="col-6 border-right">
+                <div class="col-6">
                     <h5 class="mb-4 font-weight-normal">Основные данные</h5>
                     <form class="formValidate" method="POST" action="{{ route('customer.profile.update') }}" novalidate>
                         @csrf
@@ -64,11 +64,14 @@
                             </div>
                         </div>
                         <div class="form-group mt-4">
-                            <button type="submit" class="btn btn-sm btn-primary">Изменить</button>
+                            <button type="submit" class="btn btn-sm btn-primary">Сохранить</button>
                         </div>
                     </form>
                 </div>
-                <div class="col-6">
+                <div class="col-1">
+                    <div class="border-right h-100 w-50"></div>
+                </div>
+                <div class="col-5">
                     <h5 class="mb-4 font-weight-normal">Параметры входа</h5>
                     <div class="form-group row">
                         <div class="col-lg-3">

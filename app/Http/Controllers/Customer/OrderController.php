@@ -6,24 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Order;
 use App\OrderStatus;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class OrderController extends Controller
 {
-    private $sorting_items = [
-        ['newly', 'up', 'price'],
-        ['completed', 'down', 'price'],
-        ['newly', 'down', 'id'],
-    ];
-
     public function index(Request $request)
     {
+        $sort = $request->sort;
         $sorting_items = OrderStatus::all();
         $query_orders = Order::where('user_id', Auth::id())->latest();
-        $orders = $this->sorting($query_orders, $request, $sorting_items)->paginate(8);
+        $orders = $this->sorting($query_orders, $request, $sorting_items)->paginate(10);
 
-        return view('customer.order.index', compact('orders', 'sorting_items'));
+        return view('customer.order.index', compact('orders', 'sort', 'sorting_items'));
     }
 
     public function show($id)

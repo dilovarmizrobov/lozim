@@ -1,8 +1,10 @@
 <div class="card card-product-grid">
-    <a href="{{ route('guest.product', $product->id) }}" class="img-wrap"><img src="{{ $product->image_medium }}"></a>
+    <a href="{{ route('guest.product', $product->id) }}" class="img-wrap">
+        <img src="{{ $product->image_medium }}" title="{{ $product->name }}">
+    </a>
     <figcaption class="info-wrap">
         <div class="fix-height">
-            <a href="{{ route('guest.product', $product->id) }}" class="title">{{ $product->truncateName }}</a>
+            <a href="{{ route('guest.product', $product->id) }}" class="title title-link" title="{{ $product->name }}">{{ $product->truncateName }}</a>
             <div class="price">{{ $product->price }} с.</div>
         </div>
         <div class="d-flex align-items-center justify-content-center">
@@ -14,8 +16,12 @@
                 </div>
             </div>
             <div class="mr-3">
-                <button class="btn btn-sm btn-block btn-outline-primary js-product-tocart" data-url="{{ route('cart.add') }}" data-counter="#counter{{ $product->id }}" data-product-id="{{ $product->id }}">
-                    <i class="fas fa-shopping-cart"></i>
+                <button class="btn btn-sm btn-block {{ $product->available ? "btn-outline-primary" : "btn-outline-danger" }} js-product-tocart" {{ $product->available ? null : "disabled" }} data-url="{{ route('cart.add') }}" data-counter="#counter{{ $product->id }}" data-product-id="{{ $product->id }}">
+                    @if($product->inCart)
+                        <i class="fas la-sm fa-shopping-cart"></i>
+                    @else
+                        <i class="la la-lg la-shopping-cart"></i>
+                    @endif
                 </button>
             </div>
             <div>

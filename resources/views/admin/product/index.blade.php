@@ -4,15 +4,17 @@
 	<div class="container">
         <div class="row my-4 align-items-center">
             <div class="col-auto">
-                <h3 class="font-weight-normal"><a class="text-dark" href="{{ route('admin.product.index') }}">Продукты</a></h3>
+                <h3 class="font-weight-normal">
+                    <a class="text-dark" href="{{ route('admin.product.index') }}">Продукты</a>
+                </h3>
             </div>
             <div class="col-auto">
-                <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.product.create') }}">Создать</a>
+                <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.product.create') }}">Добавить</a>
             </div>
             <div class="col-sm-auto ml-auto mt-4 mt-sm-0">
                 <form action="{{ route('admin.product.index') }}" method="get">
                     <div class="row no-gutters">
-                        <div class="col mr-3">
+                        <div class="col mr-2">
                             <input class="form-control form-control-sm" name="search" type="text" value="{{ request()->search }}" placeholder="Название товара">
                         </div>
                         <div class="col-auto">
@@ -25,6 +27,10 @@
         @if(session()->get('success'))
             <div class="alert alert-success">
                 {{ session()->get('success') }}
+            </div>
+        @elseif(session()->get('error'))
+            <div class="alert alert-info">
+                {{ session()->get('error') }}
             </div>
         @endif
         @if(request()->has('search') && !is_null(request()->search))

@@ -25,7 +25,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create(Request $request)
+    public function create()
     {
         return view('admin.category.create');
     }
@@ -42,24 +42,16 @@ class CategoryController extends Controller
 
         $parent_id = $request->parent_id === 'null' ? null : $request->parent_id;
 
-        if (!is_null($parent_id)) {
-            $parent_id = (int)$request->parent_id;
-            Category::findOrFail($parent_id);
-        }
+        if (!is_null($parent_id)) Category::findOrFail((int)$parent_id);
 
-        $request->validate([
-            'name'=>'required|max:255',
-        ]);
+        $request->validate(['name'=>'required|max:255',]);
 
-        $duplicate = Category::where('parent_id', $parent_id)
-            ->where('name', $request->name)->get();
+        $duplicate = Category::where('parent_id', $parent_id)->where('name', $request->name)->get();
+
         if (!$duplicate->isEmpty())
             return redirect()->back()->withInput()->with('success', 'Данная категория существует!');
 
-        Category::create(array_merge($request->all(), [
-            'parent_id'=>is_null($parent_id) ? null : $parent_id,
-            'slug'=>Str::slug($request->name),
-        ]));
+        Category::create(['name' => $request->name, 'parent_id' => $parent_id, 'slug' => Str::slug($request->name)]);
 
         return redirect()->route('admin.categories.index')->with('success', 'Категория успешно добавлена!');
     }
@@ -84,7 +76,8 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::findOrFail($id);
-        return view('admin.category.edit', ['category'=>$category]);
+
+        return view('admin.category.edit', ['category' => $category]);
     }
 
     /**
@@ -98,25 +91,15 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        $request->validate([
-            'name'=>'required|max:255',
-        ]);
+        $request->validate(['name' => 'required|max:255']);
 
-        $duplicate = Category::where('parent_id', $category->parent_id)
-                            ->where('name', $request->name)->get();
+        $duplicate = Category::where('parent_id', $category->parent_id)->where('name', $request->name)->get();
 
-        if (!$duplicate->isEmpty())
-            return redirect()->back()
-                ->withInput()
-                ->with('success', 'Данная категория существует!');
+        if (!$duplicate->isEmpty()) return redirect()->back()->with('success', 'Данная категория существует!');
 
-        $category->update([
-            'name'=>$request->name,
-            'slug'=>Str::slug($request->name)
-        ]);
+        $category->update(['name' => $request->name, 'slug' => Str::slug($request->name)]);
 
-        return redirect()->route('admin.categories.index')
-            ->with('success', 'Категория была успешно обновлена!');
+        return redirect()->route('admin.categories.index')->with('success', 'Категория была успешно обновлена!');
     }
 
     /**
@@ -128,6 +111,11 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
+
+        if (!$category->products->isEmpty()) {
+            return redirect()->back()->with('error', 'В категории есть товар!');
+        }
+
         $category->delete();
 
         return redirect(route('admin.categories.index'))->with('success', 'Категория была успешно удалена!');

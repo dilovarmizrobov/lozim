@@ -3,7 +3,11 @@
 @section('content')
 	<div class="container my-4">
 		<div class="row">
-			<div class="col-sm-3"><h3><a class="text-dark" href="{{ route('admin.order.index') }}">Заказы</a></h3></div>
+			<div class="col-sm-3">
+                <h3 class="font-weight-normal">
+                    <a class="text-dark" href="{{ route('admin.order.index') }}">Заказы</a>
+                </h3>
+            </div>
             <div class="col-sm-auto ml-auto mt-4 mt-sm-0">
                 <form action="{{ route('admin.order.index') }}" method="get">
                     <div class="row no-gutters">
@@ -17,24 +21,28 @@
                 </form>
             </div>
 		</div>
-        <section class="border-bottom my-3 pb-3">
+        <section class="mt-3">
+            @if(request()->has('search') && !is_null(request()->search))
+                <div class="mb-4">
+                    <h5 class="font-weight-normal">Результаты поиска: " {{ request()->search }} "</h5>
+                </div>
+            @endif
             <div class="row no-gutters">
                 @foreach($statuses as $item)
-                    <div class="col-auto mr-2">
-                        <a href="{{ route('admin.order.index', ['sort' => $item->slug]) }}" class="text-dark">{{ $item->sort_name }}</a>
+                    <div class="col-auto mr-3">
+                        @if(request()->sort === $item->slug)
+                            <a href="{{ route('admin.order.index') }}" class="text-primary">{{ $item->name }}</a>
+                        @else
+                            <a href="{{ route('admin.order.index', ['sort' => $item->slug]) }}" class="text-dark">{{ $item->name }}</a>
+                        @endif
                     </div>
                 @endforeach
             </div>
         </section>
-        <div class="mt-4">
+        <div class="mt-3">
             @if(session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
-                </div>
-            @endif
-            @if(request()->has('search') && !is_null(request()->search))
-                <div class="mb-4">
-                    <h5 class="font-weight-normal">Результаты поиска: " {{ request()->search }} "</h5>
                 </div>
             @endif
             <table class="table">
@@ -43,32 +51,41 @@
                         <th scope="col">ID</th>
                         <th scope="col">Имя</th>
                         <th scope="col">Телефон</th>
+                        <th scope="col">Сумма</th>
+                        <th scope="col">Дата доставки</th>
                         <th scope="col">Статус</th>
-                        <th scope="col">Дата</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($orders as $order)
-                        <tr class="{{ $loop->index % 2 != 0 ? 'bg-light' : '' }}">
+                        <tr {{ $loop->index % 2 != 0 ? 'class="bg-light"' : null }}>
                             <th scope="row">{{ $order->id }}</th>
                             <td><a class="text-dark" style="text-decoration: underline" href={{ route('admin.order.show', $order->id) }}>{{ $order->name }}</a></td>
                             <td>{{ $order->phone }}</td>
+                            <td>{{ $order->generalTotal }} с.</td>
+                            <td>{{ $order->delivery_date }}</td>
                             <td>
-                                <select class="form-control form-control-sm orderStatus {{ $order->status->id == 1 ? 'bg-light' : ($order->status->id == 2 ? 'bg-secondary text-white' : ($order->status->id == 3 ? 'bg-success text-white' : 'bg-danger text-white') ) }}" data-id="{{ $order->id }}">
+                                <select class="form-control form-control-sm orderStatus {{ $order->status->color }}" data-id="{{ $order->id }}">
                                     @foreach($statuses as $status)
-                                        <option {{ $status->id == $order->status->id ? 'selected' : '' }} value="{{ $status->id }}">{{ $status->name }}</option>
+                                        <option {{ $status->id == $order->status->id ? 'selected' : null }} value="{{ $status->id }}">{{ $status->name }}</option>
                                     @endforeach
                                 </select>
                             </td>
-                            <td>{{ $order->dateAndTime }}</td>
                         </tr>
                     @empty
                         <tr>
-                            <td>Сожалеем, но ничего не найдено.</td>
+                            <td colspan="99">
+                                <div class="my-5 py-5 text-center">
+                                    <h6 class="mb-3 font-weight-normal">Ничего не найдено</h6>
+                                </div>
+                            </td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
+            <div class="mt-4 d-flex justify-content-end">
+                {{ $orders->withQueryString()->links() }}
+            </div>
 		</div>
 	</div>
 @endsection

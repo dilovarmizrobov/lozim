@@ -19,4 +19,9 @@ class Feedback extends Model
      * @var array
      */
     protected $guarded = [];
+
+    public function getDateAttribute()
+    {
+        return $this->created_at->format('d-m-y / H:i');
+    }
 }

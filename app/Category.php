@@ -60,30 +60,4 @@ class Category extends Model
     {
         return $this->hasMany('App\Product');
     }
-
-    public function properties()
-    {
-        return $this->belongsToMany('App\Property');
-    }
-
-    public function property_manuals()
-    {
-        return $this->belongsToMany('App\PropertyManual');
-    }
-
-    public function get_properties_with_values()
-    {
-        return DB::select('select GET_PROPERTIES_VALUES(?) as res', [$this->id])[0]->res;
-    }
-
-    public function nonExistentProperties()
-    {
-        $id = $this->id;
-
-        return Property::whereNotIn('id', function ($query) use ($id) {
-            $query->select('property_id')
-                ->from('category_property')
-                ->where('category_id', $id);
-        })->get();
-    }
 }

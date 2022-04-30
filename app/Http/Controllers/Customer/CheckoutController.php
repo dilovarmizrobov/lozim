@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use Error;
 use Illuminate\Http\Request;
 use App\User;
 use App\Mail\OrderShipped;
-use Cart;
-use Mail;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
-use Str;
+use Illuminate\Support\Str;
 
 class CheckoutController extends Controller
 {
     const DELIVERY_MAX_DATE = 3;
     const DELIVERY_TIMES = [
-        '8' => '08:00-09:00',
-        '9' => '09:00-10:00',
-        '10' => '10:00-11:00',
+        '9' => '09:00-12:00',
+        '14' => '14:00-17:00',
     ];
 
     public function index() {
@@ -36,10 +36,10 @@ class CheckoutController extends Controller
         $delivery_times = self::DELIVERY_TIMES;
         $delivery_dates = [];
         $today = Carbon::now();
-        $begin_date_delivery = $today->hour < 16 ? $today : $today->addDay(1);
+        $begin_date_delivery = $today->hour < 16 ? $today : $today->addDay();
 
         for ($i = 1; $i <= self::DELIVERY_MAX_DATE; $i++) {
-            $delivery_date = $begin_date_delivery->addDay(1);
+            $delivery_date = $begin_date_delivery->addDay();
             $delivery_dates[$delivery_date->format('Y-m-d')] = Str::title($delivery_date->translatedFormat('l, j F'));
         }
 
@@ -48,16 +48,22 @@ class CheckoutController extends Controller
     }
 
     public function store(Request $request) {
+        if (Cart::content()->count() == 0) {
+            return redirect()->route('guest.index');
+        }
+
         $request->validate([
             'name'=>'required|max:255',
             'phone'=>'required|max:255',
             'address'=>'required|max:255',
             'comment'=>'max:600',
             'contactAgree'=>'required|accepted',
-            'checkoutDelivery' => 'required|in:regular,express',
+//            'checkoutDelivery' => 'required|in:regular,express',
             'delivery_time' => 'required|numeric|max:50000',
             'delivery_date' => 'required|date',
         ]);
+
+        $request->checkoutDelivery = 'regular';
 
         $user = auth()->user();
         $total = (double)str_replace(' ', '', Cart::subtotal());
@@ -96,8 +102,10 @@ class CheckoutController extends Controller
 
         Cart::destroy();
 
-        foreach (User::query()->where('role', 'admin')->get() as $user)
-            Mail::to($user)->send(new OrderShipped($order));
+//        try {
+//            foreach (User::query()->where('role', 'admin')->get() as $user)
+//                Mail::to($user)->send(new OrderShipped($order));
+//        } catch (Error $error) {}
 
         return redirect()->route('customer.order.show', $order->id);
     }

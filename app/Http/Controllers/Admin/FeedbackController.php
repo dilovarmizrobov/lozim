@@ -30,10 +30,6 @@ class FeedbackController extends Controller
     {
         $feedbacks = Feedback::orderBy('id', 'desc')->get();
 
-        foreach ($feedbacks as $feedback) {
-            $feedback->data = $feedback->created_at->format('d-m-y / H:i');
-        }
-
         return view('admin.feedback.index', ['feedbacks'=>$feedbacks]);
     }
 

@@ -3,8 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Auth;
-use DB;
 use Carbon\Carbon;
 
 class Order extends Model
@@ -26,7 +24,7 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getIsNewOrderAttribute()
+    public function getIsNewOrderAttribute(): bool
     {
         return $this->status->id === 1;
     }
@@ -36,7 +34,7 @@ class Order extends Model
         return number_format($this->total + $this->delivery_price, 2);
     }
 
-    public function getDeliveryTypeAttribute()
+    public function getDeliveryTypeAttribute(): string
     {
         if ($this->delivery === 'express') {
             return 'Срочная доставка';
@@ -45,17 +43,12 @@ class Order extends Model
         return 'Обычная доставка';
     }
 
-    public function getDateAttribute()
+    public function getCreatedAtAttribute($value): string
     {
-        return $this->created_at->format('d.m.Y');
+        return Carbon::parse($value)->format('H:i / d.m.y');
     }
 
-    public function getDateAndTimeAttribute()
-    {
-        return $this->created_at->format('H:i / d.m.y');
-    }
-
-    public function getDeliveryDateAttribute($value)
+    public function getDeliveryDateAttribute($value): string
     {
         return Carbon::parse($value)->format('H:i / d.m.Y');
     }

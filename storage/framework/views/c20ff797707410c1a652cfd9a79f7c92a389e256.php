@@ -1,1 +1,0 @@
-<?php /**PATH D:\Server\data\htdocs\app.loc\resources\views/customer/header.blade.php ENDPATH**/ ?>

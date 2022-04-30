@@ -22,23 +22,17 @@ class Product extends Model
         return $this->belongsTo('App\Category');
     }
 
-    public function attributes()
+    /**
+     * The users that belong to the role.
+     */
+    public function orders()
     {
-        return $this->belongsToMany('App\Property')->withPivot('value');
+        return $this->belongsToMany(Order::class);
     }
 
     public function product_images()
     {
-        return $this->hasMany(ProductImage::class)->orderBy('position');;
-    }
-
-    public function attribute_filter_values()
-    {
-        return $this->belongsToMany('App\AttributeFilterValue');
-    }
-
-    public static function getPropertyName($property_id, $property_value_id) {
-        return 'p' . $property_id . 'v' . $property_value_id;
+        return $this->hasMany(ProductImage::class)->orderBy('position');
     }
 
     // Mutators
@@ -56,6 +50,17 @@ class Product extends Model
         if ($duplicates->isNotEmpty()) {
             return $duplicates->first()->qty;
         } else return 1;
+    }
+
+    public function getInCartAttribute() {
+        $productId = $this->id;
+        $duplicates = Cart::search(function ($cartItem) use ($productId) {
+            return $cartItem->id === $productId;
+        });
+
+        if ($duplicates->isNotEmpty()) {
+            return true;
+        } else return false;
     }
 
     public function getIsFavoriteAttribute()
@@ -82,15 +87,5 @@ class Product extends Model
     {
         if ($this->product_images->isEmpty()) return ProductImage::DEFAULT_IMAGE;
         else return $this->product_images->first()->imageSmallUrl;
-    }
-
-    public function getPropertiesAttribute($value)
-    {
-        return collect(json_decode($value));
-    }
-
-    public function getPropertyManualsAttribute($value)
-    {
-        return collect(json_decode($value));
     }
 }

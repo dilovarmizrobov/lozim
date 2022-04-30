@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <section class="bg-light py-2 mt-3">
+    <section class="mt-3">
         <div class="main-container">
             <div class="container-fluid">
                 <nav>
@@ -16,33 +16,35 @@
                         @endforeach
                     </ol>
                 </nav>
-                <h4 class="title-page">{{ $category->name }}</h4>
+                <header class="section-heading">
+                    <h4 class="section-title">{{ $category->name }}</h4>
+                </header>
             </div>
         </div>
     </section>
-    <section class="main-container mb-5 mt-2">
+    <section class="main-container mb-5">
         <div class="container-fluid">
-            <header class="border-bottom mb-4 pb-3">
+            <header class="mb-3">
                 <div class="row no-gutters">
                     <div class="col-auto mr-2">
                         @if($sort === 'newly')
-                            <span class="text-success">Новые</span>
+                            <a href="{{ route('guest.category', ['slug'=> request()->slug]) }}" class="text-primary">Новые</a>
                         @else
-                            <a href="{{ route('guest.category', ['slug'=> request()->slug, 'sort' => 'newly']) }}" class="text-dark">Новые</a>
+                            <a href="{{ route('guest.category', ['slug'=> request()->slug, 'sort' => 'newly']) }}" class="title-link">Новые</a>
                         @endif
                     </div>
                     <div class="col-auto mr-2">
                         @if($sort === 'priceup')
-                            <span class="text-success">Дешевые</span>
+                            <a href="{{ route('guest.category', ['slug'=> request()->slug]) }}" class="text-primary">Дешевые</a>
                         @else
-                            <a href="{{ route('guest.category', ['slug'=> request()->slug, 'sort' => 'priceup']) }}" class="text-dark">Дешевые</a>
+                            <a href="{{ route('guest.category', ['slug'=> request()->slug, 'sort' => 'priceup']) }}" class="title-link">Дешевые</a>
                         @endif
                     </div>
                     <div class="col-auto mr-2">
                         @if($sort === 'pricedown')
-                            <span class="text-success">Дорогие</span>
+                            <a href="{{ route('guest.category', ['slug'=> request()->slug]) }}" class="text-primary">Дорогие</a>
                         @else
-                            <a href="{{ route('guest.category', ['slug'=> request()->slug, 'sort' => 'pricedown']) }}" class="text-dark">Дорогие</a>
+                            <a href="{{ route('guest.category', ['slug'=> request()->slug, 'sort' => 'pricedown']) }}" class="title-link">Дорогие</a>
                         @endif
                     </div>
                 </div>
@@ -50,6 +52,12 @@
             <div class="row">
                 <div class="col-4 col-lg-3">
                     <div class="filter-widget">
+                        @if($category->parent)
+                            <div class="filter-catagories">
+                                <a class="fwc-title" href="{{ route('guest.category', $category->parent->get_full_slug()) }}">{{ $category->parent->name }}</a>
+                                <hr>
+                            </div>
+                        @endif
                         <div class="filter-catagories">
                             @foreach($category->neighbors() as $neighbor)
                                 @if($category->id == $neighbor->id)
@@ -72,11 +80,17 @@
                 </div>
                 <div class="col">
                     <div class="row">
-                        @foreach($products as $product)
+                        @forelse($products as $product)
                             <div class="col-6 col-lg-4">
                                 @include('product.middle')
                             </div>
-                        @endforeach
+                        @empty
+                            <div class="col">
+                                <p class="text-center py-5 my-5">
+                                    Ничего не найдено
+                                </p>
+                            </div>
+                        @endforelse
                     </div>
                 </div>
             </div>

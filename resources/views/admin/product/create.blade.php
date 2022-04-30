@@ -4,7 +4,7 @@
     <div class="container product-create">
         <div class="row my-4 align-items-center">
             <div class="col-auto">
-                <h4 class="text-center font-weight-light">Создать продукт</h4>
+                <h4 class="text-center font-weight-normal">Создание продукта</h4>
             </div>
             <div class="col-auto">
                 <a href="{{ route('admin.product.index') }}" class="btn btn-sm btn-outline-primary">Назад</a>
@@ -140,41 +140,8 @@
                                 <span class="errors font-weight-bold text-danger small"></span>
                             </div>
                         </div>
-                        @if($category->properties->isNotEmpty())
-                            <hr>
-                            <h5 class="mb-4 font-weight-normal">Параметры</h5>
-                            @foreach($category->properties as $property)
-                                <div class="form-group row">
-                                    <div class="col-lg-4">
-                                        <label for="property{{ $property->id }}">{{ $property->name }}</label>
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <select name="properties[{{ $property->slug }}]" class="custom-select custom-select-sm"
-                                                                                id="property{{ $property->id}}" required>
-                                            <option selected disabled value="">Выберите значение</option>
-                                            @foreach($property->values as $value)
-                                                <option value="{{ $value->id }}" {{ old('properties.' . $property->slug) == $value->id ? 'selected' : '' }}>{{ $value->value }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @endif
-                        @if($category->property_manuals->isNotEmpty())
-                            <hr>
-                            <h5 class="mb-4 font-weight-normal">Свойства</h5>
-                            @foreach($category->property_manuals as $property_manual)
-                                <div class="form-group">
-                                    <label for="propertyManual{{ $property_manual->id}}">{{ $property_manual->name }}</label>
-                                    <input name="property_manuals[{{$property_manual->id}}]" value="{{ old('property_manuals.' . $property_manual->id) }}" type="text" class="form-control form-control-sm" id="propertyManual{{ $property_manual->id}}" required>
-                                    @if ($errors->has('property_manuals.' . $property_manual->id))
-                                        <span class="font-weight-bold text-danger small">{{ $errors->first('property_manuals.' . $property_manual->id) }}</span>
-                                    @endif
-                                </div>
-                            @endforeach
-                        @endif
                         <div class="form-group mt-4">
-                            <button class="btn btn-sm btn-primary shadow" type="submit">Добавить</button>
+                            <button class="btn btn-sm btn-primary shadow" type="submit">Создать</button>
                         </div>
                     @endif
                 </form>

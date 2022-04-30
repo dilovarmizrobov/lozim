@@ -26,15 +26,18 @@ class CartController extends Controller
         ]);
 
         $product = Product::findOrFail($request->product_id);
-        $duplicates = Cart::search(function ($cartItem) use ($product) {
-            return $cartItem->id === $product->id;
-        });
 
-        if ($duplicates->isNotEmpty()) {
-            Cart::update($duplicates->first()->rowId, $request->product_count);
-        } else {
-            Cart::add($product->id, $product->name, $request->product_count, $product->price)
-                ->associate(Product::class);
+        if ($product->available) {
+            $duplicates = Cart::search(function ($cartItem) use ($product) {
+                return $cartItem->id === $product->id;
+            });
+
+            if ($duplicates->isNotEmpty()) {
+                Cart::update($duplicates->first()->rowId, $request->product_count);
+            } else {
+                Cart::add($product->id, $product->name, $request->product_count, $product->price)
+                    ->associate(Product::class);
+            }
         }
 
         $total = (double)str_replace(' ', '', Cart::subtotal());

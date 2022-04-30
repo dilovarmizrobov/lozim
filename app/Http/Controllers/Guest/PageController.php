@@ -25,7 +25,7 @@ class PageController extends Controller
     public function product($id)
     {
         $product = Product::findOrFail($id);
-        $mightAlsoLike = Product::where('id', '!=', $product->id)->inRandomOrder()->limit(4)->get();
+        $mightAlsoLike = Product::where('id', '!=', $product->id)->inRandomOrder()->limit(8)->get();
 
         $has_category = $product->category;
         $array_breadcrumb = [];

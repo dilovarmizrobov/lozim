@@ -1,17 +1,17 @@
 @extends('layout')
 
 @section('content')
-    <section class="p-3 my-3 bg-light">
+    <section class="p-3 m-3">
         <div class="main-container">
             <div class="container-fluid">
-                <h3 class="title-page">@lang('Order ID'): #{{ $order->id }}</h3>
+                <h4 class="title-page">@lang('Order ID'): #{{ $order->id }}</h4>
             </div>
         </div>
     </section>
     <section class="main-container mb-5">
         <div class="container-fluid">
             @if($order->isNewOrder)
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-success mb-4" role="alert">
                     <h5 class="title-page">Ваш заказ успешно создан!</h5>
                     Мы свяжемся с Вами в рабочее время пн-сб с 8:00 до 18:00 для подтверждения заказа.<br>
                     Спасибо за покупки в нашем интернет-магазине!
@@ -19,9 +19,9 @@
             @endif
             <article class="card mb-5">
                 <header class="card-header">
-                    <a href="#" class="float-right"><i class="fa fa-print"></i> @lang('Print')</a>
-                    <span class="d-inline-block mr-3">@lang('Order Date'): {{ $order->date }}</span>
-                    <strong>Статус: {{ $order->status->name }}</strong>
+{{--                    <a href="#" class="float-right"><i class="fa fa-print"></i> @lang('Print')</a>--}}
+                    <span class="d-inline-block mr-3">@lang('Order Date'): {{ $order->created_at }}</span>
+                    <strong class="float-right">Статус: {{ $order->status->name }}</strong>
                 </header>
                 <div class="card-body border-bottom">
                     <div class="row">
@@ -52,7 +52,7 @@
                         <tr class="small text-uppercase">
                             <th scope="col">ТОВАР</th>
                             <th scope="col" width="100">Цена</th>
-                            <th scope="col" width="145">Количество</th>
+                            <th scope="col" width="100">Кол-во</th>
                             <th scope="col" width="100">Сумма</th>
                         </tr>
                         </thead>
@@ -61,9 +61,9 @@
                             <tr>
                                 <td>
                                     <figure class="itemside">
-                                        <div class="aside"><img src="{{ $product->image_medium }}" class="img-sm"></div>
+                                        <div class="aside"><img src="{{ $product->image_medium }}" class="img-sm" alt="img"></div>
                                         <figcaption class="info">
-                                            <a href="{{ route('guest.product', $product->id) }}" class="title">{{ $product->name }}</a>
+                                            <a href="{{ route('guest.product', $product->id) }}" class="title title-link">{{ $product->name }}</a>
                                         </figcaption>
                                     </figure>
                                 </td>

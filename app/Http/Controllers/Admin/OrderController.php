@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Order;
 use App\OrderStatus;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Auth;
+use Illuminate\View\View;
 
 class OrderController extends Controller
 {
@@ -14,13 +16,13 @@ class OrderController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index(Request $request)
     {
         $query_orders = $this->search_by_id(Order::query());
         $statuses = OrderStatus::all();
-        $orders = $this->sorting($query_orders, $request, $statuses)->latest()->paginate(8);
+        $orders = $this->sorting($query_orders, $request)->latest()->paginate(10);
 
         return view('admin.order.index', ['orders'=>$orders, 'statuses'=>$statuses]);
     }
@@ -32,7 +34,7 @@ class OrderController extends Controller
         return $query;
     }
 
-    private function sorting($queryOrders, $request, $sortingItems)
+    private function sorting($queryOrders, $request)
     {
         $sorting_items = OrderStatus::all();
 
@@ -50,7 +52,7 @@ class OrderController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function create()
     {
@@ -60,10 +62,9 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function store(Request $request)
+    public function store()
     {
         abort(404);
     }
@@ -71,13 +72,12 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param int $id
+     * @return View
      */
-    public function show($id)
+    public function show(int $id): View
     {
         $order = Order::findOrFail($id);
-        $order->data = $order->created_at->format('H:i / d-m-y');
         $statuses = OrderStatus::all();
 
         return view('admin.order.show', ['order'=>$order, 'statuses'=>$statuses]);
@@ -86,10 +86,9 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function edit($id)
+    public function edit()
     {
         abort(404);
     }
@@ -97,11 +96,11 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): JsonResponse
     {
         $order = Order::findOrFail($id);
         $order->status_id = $request->status_id;
@@ -113,10 +112,9 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function destroy($id)
+    public function destroy()
     {
         abort(404);
     }

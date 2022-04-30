@@ -2,6 +2,10 @@
 INCLUDE STYLES AND COMPONENTS
 ===================== */
 /* ================== HELPERS  =================== */
+body{
+    padding-top: 57px;
+}
+
 a:hover {
     text-decoration: none;
 }
@@ -75,6 +79,14 @@ a:hover {
 
 .title-page {
     color: #212529;
+}
+
+.title-link {
+    color: #212529;
+}
+
+.title-link:hover {
+    color: #3167eb;
 }
 
 .text-lg {
@@ -157,17 +169,23 @@ p:last-child {
     display: none;
 }
 
-.catalog-menu.open .catalog-menu__list-content, .catalog-menu.open #carouselMainCaptions{
+.catalogMenu-content{
+    display: none;
+}
+
+.catalog-menu.open .catalogMenu-content{
     display: block;
 }
 
 .catalog-menu__list-content{
-    display: none;
     border-radius: .25rem;
     border: 1px solid #dee2e6;
-    padding: 10px 0;
-    margin-top: 1.5rem;
     transition: all 0.3s;
+    height: 100%;
+}
+
+.catalog-menu__list-content-box{
+    padding: 10px 0;
 }
 
 .catalog-menu__list-item{
@@ -191,6 +209,10 @@ p:last-child {
     display: block;
 }
 
+.catalog-menu__list-item a:hover {
+    color: #3167eb;
+}
+
 .catalog-menu__submenu{
     position: absolute;
     background: #ffffff;
@@ -198,18 +220,11 @@ p:last-child {
     left: 100%;
     top: -1px;
     min-width: 250px;
-    min-height: 100%;
+    min-height: 200px;
     border-radius: .25rem;
     z-index: 5;
     transition: all 0.3s;
 }
-
-#carouselMainCaptions{
-    display: none;
-    margin-top: 1.5rem;
-    transition: all 0.3s;
-}
-
 
 /* IF CARD IS LINKED */
 a[class*=card] {
@@ -221,11 +236,7 @@ a[class*=card]:hover .title {
 
 /* BASE STYLE FOR PRODUCT ITEM */
 [class*=card-product] a.title {
-    color: #212529;
     display: block;
-}
-[class*=card-product] a.title:hover {
-    color: #3167eb;
 }
 [class*=card-product] .badge {
     top: 10px;
@@ -250,7 +261,7 @@ a[class*=card]:hover .title {
 
 /* GRID STYLE PRODUCT ITEM */
 .card-product-grid {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 .card-product-grid .img-wrap {
     border-radius: 0.2rem 0.2rem 0 0;
@@ -308,6 +319,10 @@ a[class*=card]:hover .title {
     color: #212529;
 }
 
+.card-product-grid .la-shopping-cart {
+
+}
+
 .counter{
     display: flex;
 }
@@ -352,8 +367,9 @@ a[class*=card]:hover .title {
 }
 
 .counter__arrow:hover {
-    background: #fbedff;
     transition: all 0.3s;
+    background-color: #007bff;
+    border-color: #007bff;
 }
 
 .counter__arrow:before {
@@ -374,8 +390,7 @@ a[class*=card]:hover .title {
 }
 
 .counter__arrow:hover:before {
-    border-bottom-color: #007bff;
-    transition: all 0.3s;
+    border-bottom-color: #fff;;
 }
 
 .counter__arrow-down:before {
@@ -386,7 +401,7 @@ a[class*=card]:hover .title {
 }
 
 .counter__arrow-down:hover:before {
-    border-top-color: #007bff;
+    border-top-color: #fff;
 }
 
 .counter__arrow-down {
@@ -438,12 +453,7 @@ a[class*=card]:hover .title {
 .itemside .title {
     display: block;
     margin-bottom: 5px;
-    color: #212529;
 }
-.itemside a.title:hover {
-    color: #3167eb;
-}
-
 
 /* Category Page */
 
@@ -542,10 +552,21 @@ a[class*=card]:hover .title {
     .main-container{
         max-width: 1200px;
     }
+    .min-height-container{
+        min-height: 550px;
+    }
 }
 
 @media (max-width: 768px) {
     .main-container{
         width: 768px;
+    }
+
+    .navbar-main{
+        width: 768px;
+    }
+
+    .min-height-container{
+        min-height: 450px;
     }
 }

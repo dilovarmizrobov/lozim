@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use Intervention\Image\Facades\Image;
 use Mockery\Exception;
@@ -87,52 +86,8 @@ class ProductController extends Controller
         // Validate category
         $category = Category::findOrFail($request->category_id);
 
-        // Validate property manuals
-        if ($request->has('property_manuals'))
-            Validator::make($request->all(), ['property_manuals.*' =>'string|max:255'])->validate();
-
         // Create data for product
         $data = $request->except(['_token', 'images']);
-
-        // Add property manuals
-        $product_property_manuals = [];
-
-        foreach ($category->property_manuals as $property_manual) {
-            $property_manual_id = $property_manual->id;
-
-            if (array_key_exists($property_manual_id, $request->property_manuals)) {
-                $property_manual_value = $request->property_manuals[$property_manual_id];
-
-                if (!is_null($property_manual_value)) {
-                    array_push($product_property_manuals, [
-                        'title' => $property_manual->name,
-                        'value' => $property_manual_value,
-                    ]);
-                }
-            }
-        }
-
-        $data['property_manuals'] = json_encode($product_property_manuals);
-
-        // Add properties
-        $product_properties = [];
-
-        foreach ($category->properties as $property) {
-            $property_name = $property->slug;
-
-            if (array_key_exists($property_name, $request->properties)) {
-                $property_value = $property->values()->find($request->properties[$property_name]);
-
-                if (!is_null($property_value)) {
-                    $product_properties[Product::getPropertyName($property->id, $property_value->id)] = [
-                        'property' => $property,
-                        'value' => $property_value,
-                    ];
-                }
-            }
-        }
-
-        $data['properties'] = json_encode($product_properties);
 
         // Start transaction
         DB::beginTransaction();
@@ -181,6 +136,11 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
+
+        if (request()->has('category_id')) {
+            is_null(Category::find(request()->category_id)) ? abort(404) : $product->category_id = request()->category_id;
+        }
+
         $categories = new Category;
         $image_limit = $this->image_limit - ($product->product_images->isEmpty() ? 0
                 : $product->product_images->count());
@@ -206,23 +166,15 @@ class ProductController extends Controller
 
         // Validate
         $request->validate([
+            'category_id' => 'required|integer|max:255',
             'name' => 'required|max:255',
             'price' => 'required|numeric|max:50000',
             'description' => 'required',
         ]);
 
-        // Validate property manuals
-        if ($request->has('property_manuals'))
-            Validator::make($request->all(), ['property_manuals.*' =>'string|max:255'])->validate();
-
         // Create data for product
-        $data = $request->except(['_token', 'images']);
-
-        // Add property manuals
-        $data['property_manuals'] = json_encode($product->property_manuals);
-
-        // Add properties
-        $data['properties'] = json_encode($product->properties);
+        $data = $request->except(['_token', '_method', 'images']);
+        $data['available'] = is_null($request->available) ? 'off' : 'on';
 
         $product->fill($data)->save();
         $images = request()->images;
@@ -278,6 +230,10 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
+
+        if (!$product->orders->isEmpty()) {
+            return redirect(route('admin.product.index'))->with('error', 'Продукт в заказе!');
+        }
 
         foreach ($product->product_images as $image) {
             Storage::disk('public')->delete($image->ImagesDeletePath);

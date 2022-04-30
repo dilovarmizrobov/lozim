@@ -108,6 +108,7 @@ $(function () {
     });
 
     $('.js-product-tocart').click(function () {
+        var self = this;
         $.ajax({
             type: "POST",
             url: this.dataset.url,
@@ -119,6 +120,8 @@ $(function () {
             success: function (data) {
                 $(".header_count_products").text(data.count_products);
                 $(".header_total_price").text(data.total_price);
+                self.firstElementChild.classList.add("fas", "la-sm", "fa-shopping-cart")
+                self.firstElementChild.classList.remove("la", "la-lg", "la-shopping-cart")
             },
             xhr: App.loaderAnimationAjax,
         });
@@ -168,6 +171,10 @@ $(function () {
     });
 
     $('.js-product-tofavorite').click(function () {
-        $.post(this.dataset.url, () => $(this.firstElementChild).toggleClass('far fas'));
+        $.post(this.dataset.url, () => {
+            $(this.firstElementChild).toggleClass('far fas')
+        }).fail(() => {
+            alert("Войдите в систему для добавление товаров в избранное!")
+        })
     });
 });

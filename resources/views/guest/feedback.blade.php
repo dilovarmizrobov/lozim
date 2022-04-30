@@ -1,14 +1,14 @@
 @extends('layout')
 
 @section('content')
-    <section class="p-3 my-3 bg-light">
+    <section class="p-3 my-3">
         <div class="main-container">
             <div class="container-fluid">
                 <h3 class="title-page">Обратная связь</h3>
             </div>
         </div>
     </section>
-    <section class="main-container mb-5 mt-2">
+    <section class="main-container mb-5">
         <div class="container-fluid">
             @if (session('success'))
                 <div class="alert alert-success" role="alert">
@@ -19,8 +19,8 @@
                 @csrf
 
                 <div class="row">
-                    <div class="col-md-8 col-lg-7 mt-2">
-                        <p>ТИП ОБРАЩЕНИЯ</p>
+                    <div class="col-md-8 col-lg-7">
+                        <p>Тип обращения</p>
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-6">
@@ -67,7 +67,7 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="mt-5">ОБРАЩЕНИЕ</p>
+                        <p class="mt-5">Обращение</p>
                         <div class="form-group">
                             <textarea name="review" class="form-control @error('review') is-invalid @enderror" rows="4" placeholder="Ваш отзыв" required>{{ old('review') }}</textarea>
 
