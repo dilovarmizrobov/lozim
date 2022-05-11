@@ -31,9 +31,12 @@ class ResetEmailController extends Controller
 
         $request->validate(['email' => 'unique:users']);
 
-        $this->sendResetEmailLink();
-
-        return redirect()->back()->with('success', "На почту $this->new_email было отправлено письмо для подтверждения нового e-mail.");
+        try {
+            $this->sendResetEmailLink();
+            return redirect()->back()->with('success', "На почту $this->new_email было отправлено письмо для подтверждения нового e-mail.");
+        } catch (\Swift_TransportException $e) {
+            return redirect()->back()->with('error', "Произошла ошибка. Повторите попытку позже.");
+        }
     }
 
     public function reset($token)

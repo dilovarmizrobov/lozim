@@ -1,5 +1,7 @@
 @extends('layout')
 
+@section('title', $category->name)
+
 @section('content')
     <section class="mt-3">
         <div class="main-container">

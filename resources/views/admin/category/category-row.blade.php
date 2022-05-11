@@ -6,7 +6,7 @@
         <td>{{ $category->name }}</td>
         <td>{{ $category->products->count() }}</td>
         <td>
-            <form action="{{ route('admin.categories.destroy', $category->id)}}" method="post">
+            <form action="{{ route('admin.categories.destroy', $category->id)}}" class="js-confirmAction" method="post">
                 {{ csrf_field() }}
                 {{ method_field('DELETE') }}
                 <a href="{{ route('admin.categories.create', ['parent_id'=>$category->id]) }}" class="btn btn-sm btn-primary">

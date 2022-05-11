@@ -90,7 +90,11 @@ $(function () {
     // js-counter__number
 
     $('.js-counter__number').on('input', function () {
-        this.value = parseInt(this.value) || 1;
+        this.value = parseInt(this.value) || '';
+    });
+
+    $('.js-counter__number').on('blur', function () {
+        this.value === '' && (this.value = 1);
     });
 
     $('.js-counter__plus').click(function() {

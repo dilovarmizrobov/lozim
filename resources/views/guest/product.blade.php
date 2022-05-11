@@ -1,5 +1,7 @@
 @extends('layout')
 
+@section('title', $product->name)
+
 @section('content')
     <section class="mt-3">
         <div class="main-container">
@@ -47,19 +49,19 @@
                     <main class="col border-left">
                         <article class="content-body">
                             <div class="rating-wrap mb-3">
-                                <small class="label-rating">Артикул <span class="font-weight-bold">#{{ $product->id }}</span></small>
-                                <br>
+{{--                                <small class="label-rating">Артикул <span class="font-weight-bold">#{{ $product->id }}</span></small>--}}
+{{--                                <br>--}}
                                 @if($product->available)
                                     <small class="label-rating text-success"><i class="fa fa-clipboard-check"></i> В наличии</small>
                                 @else
                                     <small class="label-rating text-danger"><i class="fa fa-clipboard-check"></i> Нет в наличии</small>
                                 @endif
                             </div>
-                            <div class="mb-3">
+                            <div>
                                 <span class="h3">{{ $product->price }}</span>
                                 <span class="text-muted h5">cомони</span>
                             </div>
-                            <div class="d-flex align-items-center justify-content-center">
+                            <div class="d-flex align-items-center mt-4">
                                 <div class="counter mr-3">
                                     <input id="counter{{ $product->id }}" type="text" value="{{ $product->quantityInCart }}" class="counter__field js-counter__number" maxlength="4">
                                     <div class="counter__arrow-block" role="group">

@@ -44,7 +44,7 @@ class ProfileController extends Controller
         ]);
 
         if ($valid_password) $user->update(['password' => Hash::make($request->new_password)]);
-        else return redirect()->back()->with('success', 'Текущий пароль не верен!');
+        else return redirect()->back()->with('error', 'Текущий пароль не верен!');
 
         return redirect()->back()->with('success', 'Текущий пароль была успешно обновлена!');
     }

@@ -26,7 +26,6 @@
                                     {{ Auth::user()->email }}
                                 </a>
                                 <div class="dropdown-menu">
-{{--                                    <a class="dropdown-item" href="{{ route('customer.index') }}">@lang('Customer') #{{ auth()->user()->id }}</a>--}}
                                     <a class="dropdown-item" href="{{ route('customer.profile.index') }}">@lang('Account Setting')</a>
                                     <a class="dropdown-item" href="{{ route('customer.order.index') }}">@lang('My Orders')</a>
                                     <a class="dropdown-item" href="{{ route('customer.favorite.index') }}">Избранные товары</a>
@@ -81,9 +80,6 @@
                     <div class="col-4 col-lg-3">
                         <div class="catalog-menu__list-content">
                             <div class="catalog-menu__list-content-box">
-                                <div class="catalog-menu__list-item">
-                                    <a href="#">% Скидки</a>
-                                </div>
                                 @foreach($categories as $category)
                                     <div class="catalog-menu__list-item">
                                         <a href="{{ route('guest.category', $category->get_full_slug()) }}">
@@ -118,10 +114,6 @@
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
                                     <img src="/img/banner1.jpg" class="d-block w-100" alt="...">
-{{--                                    <div class="carousel-caption d-none d-md-block">--}}
-{{--                                        <h5>First slide label</h5>--}}
-{{--                                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>--}}
-{{--                                    </div>--}}
                                 </div>
                                 <div class="carousel-item">
                                     <img src="/img/banner2.jpg" class="d-block w-100" alt="...">

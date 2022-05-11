@@ -209,7 +209,7 @@ return [
         'position'              => 'Должность',
         'language_id'           => 'Язык',
         'language_level_id'     => 'Уровень языка',
-        'new_password'          => 'Новый пароль',
+        'new_password'          => '"Новый пароль"',
         'photo'                 => 'Изображения',
         'compensation_from_visible'
                                 => 'Зарплата от',

@@ -15,6 +15,11 @@
                     {{ session('success') }}
                 </div>
             @endif
+            @if(session('error'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('error') }}
+                </div>
+            @endif
             <div class="row">
                 <div class="col-6">
                     <h5 class="mb-4 font-weight-normal">Основные данные</h5>

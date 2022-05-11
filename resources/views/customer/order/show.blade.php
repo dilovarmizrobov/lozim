@@ -13,11 +13,11 @@
             @if($order->isNewOrder)
                 <div class="alert alert-success mb-4" role="alert">
                     <h5 class="title-page">Ваш заказ успешно создан!</h5>
-                    Мы свяжемся с Вами в рабочее время пн-сб с 8:00 до 18:00 для подтверждения заказа.<br>
+                    Мы свяжемся с Вами в рабочее время пн-сб с 9:00 до 18:00 для подтверждения заказа.<br>
                     Спасибо за покупки в нашем интернет-магазине!
                 </div>
             @endif
-            <article class="card mb-5">
+            <article class="card">
                 <header class="card-header">
 {{--                    <a href="#" class="float-right"><i class="fa fa-print"></i> @lang('Print')</a>--}}
                     <span class="d-inline-block mr-3">@lang('Order Date'): {{ $order->created_at }}</span>
@@ -82,6 +82,9 @@
                     </table>
                 </div>
             </article>
+            <div class="mt-5 d-flex justify-content-center">
+                <button class="btn btn-primary">Повторить заказ</button>
+            </div>
         </div>
     </section>
 @endsection

@@ -19,8 +19,8 @@ $(function() {
     });
 });
 
-$('.confirmAction').submit(function (e) {
-    if(!confirm('Удалить данный продукт?')) e.preventDefault();
+$('.js-confirmAction').submit(e => {
+    !confirm('Подтвердите действие!') && e.preventDefault();
 });
 
 $(function () {

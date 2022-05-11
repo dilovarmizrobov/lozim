@@ -54,7 +54,7 @@
                         <div class="mt-auto mb-3">
                             <hr class="w-75">
                             <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-sm btn-outline-dark">Изменить</a>
-                            <form class="d-inline confirmAction" action="{{ route('admin.product.destroy', $product->id) }}" method="post">
+                            <form class="d-inline js-confirmAction" action="{{ route('admin.product.destroy', $product->id) }}" method="post">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="_method" value="delete" />
                                 <button class="btn btn-sm btn-outline-dark" type="submit">Удалить</button>

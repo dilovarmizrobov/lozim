@@ -32,8 +32,8 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">@lang('Order Date')</th>
-                        <th scope="col">Статус</th>
                         <th scope="col">Дата доставки</th>
+                        <th scope="col">Статус</th>
                         <th scope="col">Товары</th>
                         <th scope="col">Доставка</th>
                         <th scope="col">Итого</th>
@@ -47,8 +47,8 @@
                             <td>
                                 <a href="{{ route('customer.order.show', $order->id) }}" class="text-primary">{{ $order->created_at }}</a>
                             </td>
-                            <td >{{ $order->status->name }}</td>
                             <td>{{ $order->delivery_date }}</td>
+                            <td >{{ $order->status->name }}</td>
                             <td>{{ $order->total }} с.</td>
                             <td>{{ $order->delivery_price }} с.</td>
                             <td>{{ $order->general_total }} с.</td>
